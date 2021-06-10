@@ -6,12 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <VideoView
+        <xyz.doikki.videoplayer.player.VideoView
             android:id="@+id/video"
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_height="match_parent" />
+
+
 
         <RelativeLayout
             android:id="@+id/rl_thum"
@@ -28,6 +29,7 @@
                 android:src="@color/imagepicker_text_white" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

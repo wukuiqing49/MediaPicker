@@ -16,6 +16,7 @@ import com.wu.media.R;
 import com.wu.media.databinding.FragmentRecordPreviewBinding;
 import com.wu.media.presenter.RecordPreviewPresenter;
 import com.wu.media.ui.activity.RecordActivity;
+import com.wu.media.ui.activity.VideoPlayerActivity;
 import com.wu.media.view.RecordPreviewView;
 
 import java.io.File;
@@ -103,14 +104,16 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
         if (v.getId() == R.id.play_control_iv) {
             try {
                 Uri uri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", new File(path));
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(uri, "video/*");
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                if (getActivity().getPackageManager().queryIntentActivities(intent, 0).isEmpty()) {
-                    getMvpView().showMessage("未检测到播放器");
-                } else {
-                    startActivity(intent);
-                }
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(uri, "video/*");
+//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                if (getActivity().getPackageManager().queryIntentActivities(intent, 0).isEmpty()) {
+//                    getMvpView().showMessage("未检测到播放器");
+//                } else {
+//                    startActivity(intent);
+//                }
+                VideoPlayerActivity.newInstance(getActivity(),path);
+
             } catch (Exception e) {
             }
 

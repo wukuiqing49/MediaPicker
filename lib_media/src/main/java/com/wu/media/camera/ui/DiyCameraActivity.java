@@ -36,7 +36,7 @@ import java.util.ArrayList;
 /**
  * 类介绍（必填）：
  *
- * @author Lynn
+ * @author
  */
 
 public class DiyCameraActivity extends AppCompatActivity  {

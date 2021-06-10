@@ -7,10 +7,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.wkq.base.frame.mosby.delegate.MvpView;
 import com.wkq.base.utils.AlertUtil;
+import com.wkq.base.utils.StatusBarUtil2;
 import com.wu.media.ui.activity.VideoPlayerActivity;
 
 /**
@@ -30,6 +33,11 @@ public class VideoPlayerView implements MvpView {
     }
 
     public void initView() {
+        processFullScreen();
+        StatusBarUtil2.setTransparentForWindow(mActivity);
+        StatusBarUtil2.addTranslucentView(mActivity, 0);
+        QMUIStatusBarHelper.setStatusBarLightMode(mActivity);
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -43,9 +51,26 @@ public class VideoPlayerView implements MvpView {
 
 
         Glide.with(mActivity).load(Uri.parse(mActivity.path)).into(mActivity.binding.ivThumbnail);
-
+        mActivity.binding.video.setUrl(mActivity.path);
+        mActivity.binding.video.start();
     }
 
+    /**
+     * 处理刘海屏全屏问题
+     */
+    public void processFullScreen() {
+
+        WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            lp.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        }
+        mActivity.getWindow().setAttributes(lp);
+        // 设置页面全屏显示
+        View decorView = mActivity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+    }
 
     public void showMessage(String message) {
         if (mActivity == null || TextUtils.isEmpty(message)) {

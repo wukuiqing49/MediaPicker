@@ -14,6 +14,7 @@ import com.bumptech.glide.request.target.Target;
 import com.wkq.base.frame.mosby.delegate.MvpView;
 import com.wkq.base.utils.AlertUtil;
 import com.wu.media.media.entity.Media;
+import com.wu.media.ui.activity.VideoPlayerActivity;
 import com.wu.media.ui.fragment.MediaFragment;
 import com.wu.media.ui.widget.large.ImageSource;
 import com.wu.media.ui.widget.large.SubsamplingScaleImageView;
@@ -62,15 +63,17 @@ public class MediaFView implements MvpView {
 
             mFragment.binding.playView.setOnClickListener(v -> {
 
-                Uri uri = Uri.parse(mFragment.mMedia.fileUri);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(uri, "video/*");
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                if (mFragment.getActivity().getPackageManager().queryIntentActivities(intent, 0).isEmpty()) {
-                    AlertUtil.showDeftToast(mFragment.getActivity(), "未检测到播放器");
-                } else {
-                    mFragment.startActivity(intent);
-                }
+//                Uri uri = Uri.parse(mFragment.mMedia.fileUri);
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(uri, "video/*");
+//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                if (mFragment.getActivity().getPackageManager().queryIntentActivities(intent, 0).isEmpty()) {
+//                    AlertUtil.showDeftToast(mFragment.getActivity(), "未检测到播放器");
+//                } else {
+//                    mFragment.startActivity(intent);
+//                }
+
+                VideoPlayerActivity.newInstance(mFragment.getActivity(),mFragment.mMedia.fileUri);
 
 //                VideoPlayerActivity.newInstance(mFragment.getActivity(), mFragment.mMedia.fileUri);
             });

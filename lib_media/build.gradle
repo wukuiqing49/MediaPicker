@@ -68,4 +68,8 @@ dependencies {
 
     implementation "com.qmuiteam:qmui:$rootProject.qmui"
 
+    implementation 'xyz.doikki.android.dkplayer:dkplayer-java:3.3.2'
+    implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.2'
+    implementation 'xyz.doikki.android.dkplayer:player-exo:3.3.2'
+
 }
