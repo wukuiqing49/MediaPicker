@@ -1,0 +1,71 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled true
+    }
+    dexOptions {
+        javaMaxHeapSize '4g'
+    }
+}
+
+dependencies {
+
+    implementation "androidx.legacy:legacy-support-v4:$rootProject.androidX_legacy_support_v4"
+    implementation "androidx.appcompat:appcompat:$rootProject.androidXAppcompat"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.androidXRecyclerview"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.androidXConstraintlayout"
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    api 'com.github.wukuiqing49:wkq_mvvm_mvp_base:1.0.42'
+    implementation 'com.github.wukuiqing49:UtilFragment:1.0.2'
+    //glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
+    implementation "jp.wasabeef:glide-transformations:$rootProject.glideTransformations"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.compiler"
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+
+    //ARouter
+    implementation "com.alibaba:arouter-api:$rootProject.arouterApiVersion"
+    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.arouterCompilerVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid"
+
+    implementation "com.qmuiteam:qmui:$rootProject.qmui"
+
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_defult_bg">
+
+        <include
+            android:id="@+id/top"
+            layout="@layout/meidia_picker_actionbar_top" />
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/top" />
+
+        <include
+            android:id="@+id/bottom"
+            layout="@layout/media_preview_bottom_bar"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/footer"
+            layout="@layout/layout_main_footer" />
+
+    </RelativeLayout>
+</layout>

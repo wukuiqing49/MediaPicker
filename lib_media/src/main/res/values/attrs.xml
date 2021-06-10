@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="iconSize" format="dimension"/>
+    <attr name="iconMargin" format="dimension"/>
+    <attr name="iconSrc" format="reference"/>
+    <attr name="iconLeft" format="reference"/>
+    <attr name="iconRight" format="reference"/>
+    <attr name="duration_max" format="integer"/>
+    <declare-styleable name="JCameraView">
+        <attr name="iconSize"/>
+        <attr name="iconMargin"/>
+        <attr name="iconSrc"/>
+        <attr name="iconLeft"/>
+        <attr name="iconRight"/>
+        <attr name="duration_max"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="SubsamplingScaleImageView">
+        <attr name="src" format="reference"/>
+        <attr name="assetName" format="string"/>
+        <attr name="panEnabled" format="boolean"/>
+        <attr name="zoomEnabled" format="boolean"/>
+        <attr name="quickScaleEnabled" format="boolean"/>
+        <attr name="tileBackgroundColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="TypeButtonStyle">
+        <attr name="typeBg" format="reference"/>
+        <attr name="typeSize" format="dimension"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="MediaShootViewStyle">
+
+        <attr name="innerRadius" format="dimension" formatted="false"/>
+        <attr name="outerRadius" format="dimension" formatted="false"/>
+        <attr name="innerColor" format="color" formatted="false"/>
+        <attr name="outerColor" format="color" formatted="false"/>
+
+
+        <attr name="mediaProgressColor" format="color" formatted="false"/>
+        <attr name="mediaProgressWidth" format="dimension" formatted="false"/>
+
+        <attr name="curProgress" format="integer" formatted="false"/>
+        <attr name="maxProgress" format="integer" formatted="false"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="ReturnButtonStyle">
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="strokeColor" format="color"/>
+    </declare-styleable>
+
+</resources>

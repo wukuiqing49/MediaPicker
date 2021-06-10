@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onClick"
+            type="OnClickListener" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent">
+
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/iv_pre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+
+        <RelativeLayout
+
+            android:id="@+id/rl_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/iv_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <ImageView
+                android:onClick="@{onClick}"
+                android:id="@+id/play_control_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+
+                android:src="@drawable/iv_pre_play" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp">
+
+            <com.wu.media.ui.widget.record.TypeButton
+                android:id="@+id/tb_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:onClick="@{onClick}"
+                app:typeBg="@drawable/fb_chongpai"
+                app:typeSize="35dp" />
+
+            <com.wu.media.ui.widget.record.TypeButton
+                android:id="@+id/tb_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:onClick="@{onClick}"
+                app:typeBg="@drawable/fb_wancheng"
+                app:typeSize="35dp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

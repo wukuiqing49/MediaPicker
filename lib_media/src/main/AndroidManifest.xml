@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wu.media">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <application
+        android:resizeableActivity="true"
+        android:largeHeap="true">
+        <activity
+            android:name="com.wu.media.ui.activity.MediaActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.wu.media.ui.activity.RecordActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:theme="@style/FullActivityThemeStyle"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.wu.media.ui.activity.ImageCropActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullActivityThemeStyle"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.wu.media.ui.activity.VideoPlayerActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullActivityThemeStyle"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.wu.media.ui.activity.MediaPreviewActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".camera.ui.DiyCameraActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation|smallestScreenSize|screenLayout"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullActivityThemeStyle" />
+
+    </application>
+</manifest>

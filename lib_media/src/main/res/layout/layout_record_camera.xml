@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/image_flash"
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_flash_off" />
+
+            <ImageView
+                android:id="@+id/image_switch"
+                android:layout_width="25dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:background="@drawable/fb_xiangji" />
+        </LinearLayout>
+
+        <TextView
+            android:textColor="@color/imagepicker_text_white"
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rl_bottom"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:id="@+id/iv_shoot_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:layout_toLeftOf="@+id/shootView"
+                android:src="@drawable/iv_shoot_back" />
+
+
+            <com.wu.media.ui.widget.record.ShootView
+                android:id="@+id/shootView"
+                android:layout_width="106dp"
+                android:layout_height="94dp"
+                android:layout_centerInParent="true"
+                app:innerRadius="28dp"
+                app:outerRadius="35dp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/pre_top"
+            layout="@layout/meidia_picker_actionbar_top" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/pre_top" />
+
+    </RelativeLayout>
+
+</layout>

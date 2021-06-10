@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onClick"
+            type="OnClickListener" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/activity_imaeg_crop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_defult_bg"
+        android:orientation="vertical">
+
+        <com.wu.media.ui.widget.crop.CropView
+            android:id="@+id/cv_crop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/btn_crop_cancel"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shape_crop_cancel_bg"
+                android:gravity="center"
+                android:onClick="@{onClick}"
+                android:text="@string/imagepicker_crop_cancel"
+                android:textColor="@color/imagepicker_text_white"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/btn_crop_confirm"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/shape_crop_ok_bg"
+                android:gravity="center"
+                android:onClick="@{onClick}"
+                android:text="@string/imagepicker_crop_ok"
+                android:textColor="@color/imagepicker_text_white"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

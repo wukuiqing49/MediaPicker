@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <!-- 配置Android提供的theme -->
+        <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>
+        <item name="android:listPreferredItemHeightSmall">?attr/qmui_list_item_height</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+        <!-- 配置qmui提供的theme -->
+        <item name="qmui_config_color_blue">#FFFFFF</item>
+        <item name="qmui_content_spacing_horizontal">20dp</item>
+        <item name="qmui_content_padding_horizontal">@dimen/qmui_content_spacing_horizontal</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- 配置app自己的theme -->
+        <!--<item name="app_primary_color">@color/qmui_config_color_white</item>-->
+        <!--<item name="app_content_bg_color">@color/qmui_config_color_white</item>-->
+
+        <item name="qmui_bottom_sheet_grid_item_mini_width">96dp</item>
+    </style>
+
+    <style name="BtnOkStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:enabled">false</item>
+        <item name="android:paddingLeft">@dimen/imagepicker_padding</item>
+        <item name="android:paddingRight">@dimen/imagepicker_padding</item>
+        <item name="android:text">@string/btn_imagepicker_ok</item>
+        <item name="android:textColor">@drawable/imagepicker_btn_ok_tv_selector</item>
+        <item name="android:background">@drawable/imagepicker_btn_ok_bg_selector</item>
+    </style>
+
+    <!--图片文件夹pop动画-->
+    <style name="FloderPopAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/imagepicker_pop_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/imagepicker_pop_slide_out</item>
+    </style>
+
+
+    <style name="FullActivityThemeStyle" parent="QMUI.NoActionBar" >
+        <item name="android:windowFrame">@android:color/transparent</item><!--边框-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
+
+    <style name="CustomDialogStyleMediaPicker" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+</resources>
