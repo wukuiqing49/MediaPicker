@@ -44,28 +44,28 @@ public class VideoPlayerActivity extends MvpBindingActivity<VideoPlayerView, Vid
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         path = getIntent().getStringExtra("path");
-        if (getMvpView() != null) getMvpView().requestAudioFocus();
+//        if (getMvpView() != null) getMvpView().requestAudioFocus();
         if (getMvpView() != null) getMvpView().initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (getMvpView() != null) getMvpView().onResume();
+//        if (getMvpView() != null) getMvpView().onResume();
     }
 
     @Override
     public void onPause() {
-        if (getMvpView() != null) getMvpView().abandonAudioFocus();
+//        if (getMvpView() != null) getMvpView().abandonAudioFocus();
         super.onPause();
         if (getMvpView() != null) getMvpView().onPause();
     }
 
     @Override
     protected void onDestroy() {
-        if (getMvpView() != null) getMvpView().abandonAudioFocus();
+//        if (getMvpView() != null) getMvpView().abandonAudioFocus();
         super.onDestroy();
-//        if (binding.video != null) binding.video.release();
+        if (binding.video != null) binding.video.release();
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.wu.media.R;
 import com.wu.media.utils.ScreenUtils;
 
 
@@ -40,7 +41,7 @@ public class FoucsView extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(0xEE16AE16);
+        mPaint.setColor(context.getResources().getColor(R.color.color_1afa29));
         mPaint.setStrokeWidth(4);
         mPaint.setStyle(Paint.Style.STROKE);
     }

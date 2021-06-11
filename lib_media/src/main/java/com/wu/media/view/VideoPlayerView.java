@@ -53,6 +53,7 @@ public class VideoPlayerView implements MvpView {
         Glide.with(mActivity).load(Uri.parse(mActivity.path)).into(mActivity.binding.ivThumbnail);
         mActivity.binding.video.setUrl(mActivity.path);
         mActivity.binding.video.start();
+        mActivity.isPlayIng = true;
     }
 
     /**
@@ -109,7 +110,7 @@ public class VideoPlayerView implements MvpView {
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS ||
                     focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
                 //失去焦点之后的操作
-                onPause();
+//                onPause();
             } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN ||
                     focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT ||
                     focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE ||
@@ -127,13 +128,14 @@ public class VideoPlayerView implements MvpView {
         if (mActivity.isCanPlay) {
             if (mActivity.isPlayIng) {
                 mActivity.binding.video.pause();
-                mActivity.binding.rlThum.setVisibility(View.VISIBLE);
-                mActivity.binding.ivThumbnail.setVisibility(View.GONE);
+                mActivity.binding.rlThum.setVisibility(View.GONE);
+                mActivity.binding.ivPlay.setVisibility(View.VISIBLE);
                 mActivity.isPlayIng = false;
             } else {
                 mActivity.binding.video.start();
                 mActivity.binding.rlThum.setVisibility(View.GONE);
                 mActivity.isPlayIng = true;
+                mActivity.binding.ivPlay.setVisibility(View.GONE);
             }
         }
     }
@@ -142,7 +144,7 @@ public class VideoPlayerView implements MvpView {
     public void onResume() {
         mActivity.isPlayIng = false;
         mActivity.binding.video.pause();
-        mActivity.binding.rlThum.setVisibility(View.VISIBLE);
+        mActivity.binding.ivPlay.setVisibility(View.VISIBLE);
     }
 
     public void onPause() {

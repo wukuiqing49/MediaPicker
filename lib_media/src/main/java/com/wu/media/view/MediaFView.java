@@ -73,7 +73,7 @@ public class MediaFView implements MvpView {
 //                    mFragment.startActivity(intent);
 //                }
 
-                VideoPlayerActivity.newInstance(mFragment.getActivity(),mFragment.mMedia.fileUri);
+                VideoPlayerActivity.newInstance(mFragment.getActivity(),mFragment.mMedia.path);
 
 //                VideoPlayerActivity.newInstance(mFragment.getActivity(), mFragment.mMedia.fileUri);
             });

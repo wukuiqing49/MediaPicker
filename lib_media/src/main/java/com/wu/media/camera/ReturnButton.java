@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
+import com.wu.media.R;
+
 /**
  * =====================================
  * 作    者: 陈嘉桐 445263848@qq.com
@@ -35,7 +37,7 @@ public class ReturnButton extends View {
 
         paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setColor(0xffffa300);
+        paint.setColor(context.getResources().getColor(R.color.color_1afa29));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 

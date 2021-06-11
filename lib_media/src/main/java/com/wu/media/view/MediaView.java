@@ -407,7 +407,7 @@ public class MediaView implements MvpView {
     public void processCheckMeidaState(Media media) {
         if (isCheckMediaSupport(media)) {
             if (!media.isSelect()) {
-                checkImage.setImageResource(R.drawable.xc_xuanzhong);
+                checkImage.setImageResource(R.drawable.iv_media_checked);
             } else {
                 checkImage.setImageResource(R.drawable.xc_weixuan);
             }
@@ -466,7 +466,7 @@ public class MediaView implements MvpView {
         }
 
         if (media.isSelect()) {
-            checkImage.setImageResource(R.drawable.xc_xuanzhong);
+            checkImage.setImageResource(R.drawable.iv_media_checked);
         } else {
             checkImage.setImageResource(R.drawable.xc_weixuan);
         }

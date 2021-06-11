@@ -68,7 +68,7 @@
         android:id="@+id/indicator"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/xc_xuanzhong"
+        android:src="@drawable/iv_media_checked"
         android:layout_gravity="center_vertical"
         android:layout_width="23dp"
         android:layout_height="23dp" />
