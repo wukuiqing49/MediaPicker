@@ -91,7 +91,7 @@ public class CaptureLayout extends FrameLayout {
         }
         //  button_size = (int) (layout_width / 6f);
         //  layout_height = button_size + (button_size / 5) * 2 + 100;
-        layout_height = dip2px(100);
+        layout_height = dip2px(120);
         button_size = dip2px(50);
         initView();
         initEvent();

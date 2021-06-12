@@ -41,14 +41,14 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
     OnItemClickListener listener;
     ImagePickerOptions mOptions;
     private MediaImageItemBinding binding;
-    int itemHight=0;
+    int itemHight = 0;
 
     public MediaAdapter(Context context, boolean showTime, ImagePickerOptions mOptions) {
         super(context);
         mContxt = context;
         this.showTime = showTime;
         this.mOptions = mOptions;
-        itemHight=getItemWidth();
+        itemHight = getItemWidth();
     }
 
     /**
@@ -119,9 +119,6 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
     private void showMedia(MediaViewHolder mediaViewHolder, int position) {
         Media mMedia = getItem(position);
         binding = (MediaImageItemBinding) mediaViewHolder.getBinding();
-
-//        ContentResolver resolver = mContxt.getContentResolver();
-//        resolver.loadThumbnail()
         GlideCacheUtil.intoItemImageThumbnail(mContext, mMedia, binding.mediaImage, null);
         if (mMedia.mediaType == 1) {
             binding.videoInfo.setVisibility(View.GONE);
@@ -134,7 +131,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
             binding.checkImage.setVisibility(View.GONE);
         } else {
             binding.checkImage.setVisibility(View.VISIBLE);
-            binding.checkImage.setImageDrawable(mMedia.isSelect() ? ContextCompat.getDrawable(mContext, R.drawable.xc_xuanzhong) : ContextCompat.getDrawable(mContext, R.drawable.xc_weixuan));
+            binding.checkImage.setImageDrawable(mMedia.isSelect() ? ContextCompat.getDrawable(mContext, R.drawable.iv_media_checked) : ContextCompat.getDrawable(mContext, R.drawable.xc_weixuan));
         }
 
         binding.checkImage.setOnClickListener(v -> {
