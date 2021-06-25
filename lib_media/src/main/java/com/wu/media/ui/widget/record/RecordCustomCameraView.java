@@ -51,7 +51,7 @@ public class RecordCustomCameraView extends FrameLayout {
     /**
      * 相机类
      */
-    private CameraPreview preview;
+    public CameraPreview preview;
     boolean showFlash = false;
 
     public RecordCustomCameraView(@NonNull Context context) {

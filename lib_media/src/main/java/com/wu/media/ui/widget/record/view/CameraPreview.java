@@ -76,8 +76,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     private MediaRecorder mMediaRecorder;
     private String videoPath;
     CameraPreviewErroListener mOnErroListener;
-    public void setOnErroListener(CameraPreviewErroListener listener){
-        mOnErroListener=listener;
+
+    public void setOnErroListener(CameraPreviewErroListener listener) {
+        mOnErroListener = listener;
     }
 
     public CameraPreview(Context context) {
@@ -96,7 +97,39 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         previewCamera(holder);
-        findAvailableCameras();
+    }
+
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        if (holder.getSurface() == null) {
+            return;
+        }
+
+        try {
+            resume();
+        } catch (Exception e) {
+            if (mOnErroListener != null) mOnErroListener.onErro("相机异常");
+        }
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        if (mCamera != null) {
+            if (isPreview) {
+                //正在预览
+                doDestroyCamera();
+            }
+        }
+    }
+
+
+    public void resume() {
+        if (mCamera == null) {
+            openCamera(id);
+            previewCamera(getHolder());
+        }
+
     }
 
     /**
@@ -105,8 +138,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
      * @param holder
      * @throws IOException
      */
-    public void previewCamera(SurfaceHolder holder)  {
-
+    public void previewCamera(SurfaceHolder holder) {
+        findAvailableCameras();
         //设置设备高宽比
         mAspectRatio = getDeviceAspectRatio((Activity) context);
         //设置预览方向
@@ -138,41 +171,14 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         try {
             mCamera.setPreviewDisplay(holder);
         } catch (Exception e) {
-            if (mOnErroListener!=null) mOnErroListener.onErro("相机初始化异常");
+            if (mOnErroListener != null) mOnErroListener.onErro("相机初始化异常");
         }
         //开启预览效果
         mCamera.startPreview();
         isPreview = true;
         doFocus(ScreenUtils.getScreenWidth(context) / 2, ScreenUtils.getScreenHeight(context) / 2);
-    }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (holder.getSurface() == null) {
-            return;
-        }
-        //停止预览效果
-        if (mCamera == null) {
-            openCamera(id);
-            findAvailableCameras();
-        }
-        try {
-            previewCamera(getHolder());
-        } catch (Exception e) {
-            if (mOnErroListener!=null) mOnErroListener.onErro("相机异常");
-        }
     }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        if (mCamera != null) {
-            if (isPreview) {
-                //正在预览
-                doDestroyCamera();
-            }
-        }
-    }
-
 
     /**
      * 注释：获取设备屏宽比
@@ -274,8 +280,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         } else {
             SELECTED_CAMERA = CAMERA_POST_POSITION;
         }
-        openCamera(id);
-        previewCamera(getHolder());
+        reset();
     }
 
     /**
@@ -286,9 +291,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
      */
     private synchronized boolean openCamera(int id) {
         try {
-            this.mCamera = Camera.open(id);
+            mCamera = Camera.open(id);
         } catch (Exception e) {
-            if (mOnErroListener!=null)mOnErroListener.onErro("相机开启异常");
+            if (mOnErroListener != null) mOnErroListener.onErro("相机开启异常");
         }
 
         try {
@@ -296,13 +301,13 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 this.mCamera.enableShutterSound(false);
             }
         } catch (Exception e) {
-            if (mOnErroListener!=null)mOnErroListener.onErro("相机开启异常");
+            if (mOnErroListener != null) mOnErroListener.onErro("相机开启异常");
         }
 
         return mCamera != null;
     }
 
-    public void reset(){
+    public void reset() {
         doDestroyCamera();
         openCamera(id);
         findAvailableCameras();
@@ -401,8 +406,11 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                     context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
                 }
                 listener.onResult(filePath);
+                openCamera(id);
+                previewCamera(getHolder());
             }
         });
+
     }
 
 
@@ -411,14 +419,14 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     private int cameraAngle = 90;//摄像头角度   默认为90度
     boolean isRecorder;
 
-   public void registerSensorManager(Context context) {
+    public void registerSensorManager(Context context) {
         SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (sm == null) return;
         Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sm.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-   public void unregisterSensorManager(Context context) {
+    public void unregisterSensorManager(Context context) {
         SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (sm == null) return;
         sm.unregisterListener(sensorEventListener);
@@ -437,12 +445,18 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     };
 
+    /**
+     * 视频录制
+     *
+     * @param screenProp
+     */
+
     public void startRecord(float screenProp) {
 
         //启动录像
         if (mCamera == null) return;
         mCamera.setPreviewCallback(null);
-         int nowAngle = (angle + 90) % 360;
+        int nowAngle = (angle + 90) % 360;
         //获取第一帧图片
 
         if (mCamera == null) {
@@ -508,7 +522,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             } else {
                 mMediaRecorder.setVideoEncodingBitRate(20 * 100000);
             }
-            mMediaRecorder.setPreviewDisplay(mHolder.getSurface());
+            mMediaRecorder.setPreviewDisplay(getHolder().getSurface());
             videoPath = AlbumProcessUtil.getPath(context) + System.currentTimeMillis() + ".mp4";
             mMediaRecorder.setOutputFile(videoPath);
 
@@ -516,12 +530,14 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mMediaRecorder.start();
             isRecorder = true;
         } catch (Exception e) {
-            if (mOnErroListener!=null)mOnErroListener.onErro("视频录异常");
+            if (mOnErroListener != null) mOnErroListener.onErro("视频录制异常");
         }
     }
 
 
-
+    /**
+     * 处理 视频录制方向问题
+     */
     private void findAvailableCameras() {
         Camera.CameraInfo info = new Camera.CameraInfo();
         int cameraNum = Camera.getNumberOfCameras();
@@ -529,7 +545,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             try {
                 Camera.getCameraInfo(i, info);
             } catch (Exception e) {
-                if (mOnErroListener!=null)mOnErroListener.onErro("获取相机信息异常");
+                if (mOnErroListener != null) mOnErroListener.onErro("获取相机信息异常");
                 continue;
             }
             switch (info.facing) {
@@ -575,7 +591,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             try {
                 previewCamera(getHolder());
             } catch (Exception e) {
-                if (mOnErroListener!=null)mOnErroListener.onErro("相机异常");
+                if (mOnErroListener != null) mOnErroListener.onErro("相机异常");
             }
         }
     }
