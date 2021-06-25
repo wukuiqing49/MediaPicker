@@ -191,7 +191,6 @@ public class MediaActivity extends MvpBindingActivity<MediaView, MediaPresenter,
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame);
         if (currentFragment instanceof MediaPickerFragment) {
             ((MediaPickerFragment) currentFragment).setMediaData(list);
-            Log.e("时间:", System.currentTimeMillis()-time+"");
             if (mFolderAdapter != null) mFolderAdapter.updateAdapter(list);
         }
 

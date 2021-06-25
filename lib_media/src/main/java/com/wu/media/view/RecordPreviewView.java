@@ -51,11 +51,11 @@ public class RecordPreviewView implements MvpView {
     public void initView(RecordActivity mActivity) {
 
         if (mFragment.type == 0) {
-            mFragment.binding.ivPre.setVisibility(View.VISIBLE);
+//            mFragment.binding.ivPre.setVisibility(View.VISIBLE);
             mFragment.binding.rlVideo.setVisibility(View.GONE);
-            GlideCacheUtil.intoItemImageBitmap(mActivity, mActivity.preBitmap, mFragment.binding.ivPre);
+//            GlideCacheUtil.intoItemImageBitmap(mActivity, mActivity.preBitmap, mFragment.binding.ivPre);
         } else if (mFragment.type == 1) {
-            mFragment.binding.ivPre.setVisibility(View.GONE);
+//            mFragment.binding.ivPre.setVisibility(View.GONE);
             mFragment.binding.rlVideo.setVisibility(View.VISIBLE);
             RequestOptions option = new RequestOptions();
             option.dontTransform()

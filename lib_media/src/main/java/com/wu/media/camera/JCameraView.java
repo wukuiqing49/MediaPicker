@@ -48,15 +48,10 @@ import com.wu.media.utils.ScreenUtils;
  * 描    述：
  * =====================================
  */
-public class JCameraView extends FrameLayout implements CameraInterface.CameraOpenOverCallback, SurfaceHolder
-        .Callback, CameraView {
-//    private static final String TAG = "JCameraView";
+public class JCameraView extends FrameLayout implements CameraInterface.CameraOpenOverCallback, SurfaceHolder.Callback, CameraView {
 
     //Camera状态机
     private CameraMachine machine;
-
-    //闪关灯状态
-    // private static final int TYPE_FLASH_AUTO = 0x021;
     private static final int TYPE_FLASH_ON = 0x022;
     private static final int TYPE_FLASH_OFF = 0x023;
     private int type_flash = TYPE_FLASH_OFF;
@@ -147,7 +142,6 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         layout_width = ScreenUtils.getScreenWidth(getContext());
         //缩放梯度
         zoomGradient = (int) (layout_width / 16f);
-        LogUtil.i("zoom = " + zoomGradient);
         machine = new CameraMachine(getContext(), this, this);
     }
 

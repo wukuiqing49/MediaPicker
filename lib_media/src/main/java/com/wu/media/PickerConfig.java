@@ -9,6 +9,7 @@ public class PickerConfig {
 
     //视频文件最大时长
     public static final String MAX_TIME = "max_time";
+    //视频录制时长
     public static final int RECODE_MAX_TIME = 60*1000;
     // 默认视频时长
     public static final int DEFAULT_MAX_TIME = Integer.MAX_VALUE;

@@ -20,12 +20,17 @@
         <activity
             android:name="com.wu.media.ui.activity.MediaActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.wu.media.ui.activity.RecordActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
+            android:theme="@style/FullActivityThemeStyle"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".camera.ui.CustomCameraActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:launchMode="singleTop"
             android:theme="@style/FullActivityThemeStyle"

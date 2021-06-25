@@ -63,7 +63,9 @@ public class Media  implements Parcelable {
         isLongImg = longImg;
     }
 
+    public Media() {
 
+    }
 
     public Media(int mediaType) {
         this.mediaType = mediaType;

@@ -1,6 +1,7 @@
 package com.wu.media.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
@@ -37,6 +38,7 @@ public class MediaPickerFragment extends MvpBindingFragment<MediaPickerFragmentV
 
     public MediaActivity mActivity;
     public MediaAdapter mMediaAdapter = null;
+    private long startTime;
 
     public static MediaPickerFragment newInstanse() {
 
@@ -64,6 +66,7 @@ public class MediaPickerFragment extends MvpBindingFragment<MediaPickerFragmentV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        startTime = System.currentTimeMillis();
         SelectStateUpdateObservable.getInstance().addObserver(this);
         mActivity = (MediaActivity) getActivity();
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
@@ -72,7 +75,9 @@ public class MediaPickerFragment extends MvpBindingFragment<MediaPickerFragmentV
     }
 
     public void setMediaData(ArrayList<Folder> medias) {
+
         if (getMvpView() != null) getMvpView().initMediaData(mActivity, medias);
+        Log.e("展示时间:",System.currentTimeMillis()-startTime+"");
     }
 
     @Override

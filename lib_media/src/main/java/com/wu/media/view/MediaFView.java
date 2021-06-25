@@ -1,7 +1,5 @@
 package com.wu.media.view;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 

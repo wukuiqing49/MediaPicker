@@ -1,10 +1,14 @@
 package com.wu.media.view;
 
+import android.os.Build;
 import android.text.TextUtils;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.wkq.base.frame.mosby.delegate.MvpView;
 import com.wkq.base.utils.AlertUtil;
 import com.wkq.base.utils.DoublePressed;
@@ -58,18 +62,18 @@ public class MediaPickerFragmentView implements MvpView {
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         mFragment.binding.rv.setHasFixedSize(true);
 
-//        mFragment.binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
-//                    Glide.with(recyclerView).resumeRequests();
-//                } else {
-//                    Glide.with(recyclerView).pauseRequests();
-//                }
-//            }
-//        });
+        mFragment.binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    Glide.with(recyclerView).resumeRequests();
+                } else {
+                    Glide.with(recyclerView).pauseRequests();
+                }
+            }
+        });
         mFragment.mMediaAdapter = new MediaAdapter(mFragment.getActivity(), mActivity.showTime, mActivity.mOptions);
         mFragment.binding.rv.setAdapter(mFragment.mMediaAdapter);
 

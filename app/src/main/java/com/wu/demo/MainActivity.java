@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
-import com.wkq.base.utils.StatusBarUtil2;
 import com.wu.demo.databinding.ActivityMainBinding;
 import com.wu.media.ImagePicker;
 import com.wu.media.PickerConfig;
@@ -84,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new ImagePicker.Builder()
                         .builder()
                         .startPreview(this, 0, select, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
+                break;
+            case R.id.bt_new:
+                //打开预览
+                new ImagePicker.Builder()
+                        .builder().startNewCam(this);
                 break;
         }
     }

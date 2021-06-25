@@ -31,7 +31,6 @@ import com.wu.media.media.entity.Folder;
 import com.wu.media.media.entity.Media;
 import com.wu.media.ui.activity.ImageCropActivity;
 import com.wu.media.ui.activity.MediaActivity;
-import com.wu.media.ui.activity.RecordActivity;
 import com.wu.media.ui.adapter.FolderAdapter;
 import com.wu.media.ui.adapter.PreviewBottomMediaAdapter;
 import com.wu.media.ui.fragment.MediaPickerFragment;

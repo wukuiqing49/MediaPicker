@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import com.wu.media.R;
@@ -16,9 +17,12 @@ import com.wu.media.media.DataCallback;
 import com.wu.media.media.entity.Folder;
 import com.wu.media.media.entity.Media;
 import com.wu.media.utils.MediaUtils;
+import com.wu.media.utils.observable.MediaAddObservable;
+import com.wu.media.utils.observable.MediaAddObservable2;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -45,8 +49,10 @@ public class MediaLoader extends LoaderM implements LoaderManager.LoaderCallback
     private Uri photoUri;
     private static MediaLoader instance;
     private static ArrayList<Folder> folders = new ArrayList<>();
+    private static long startTime;
 
     public synchronized static MediaLoader getInstance(Context context, DataCallback loader) {
+        startTime=System.currentTimeMillis();
         if (instance == null) {
             instance = new MediaLoader(context);
             folders = new ArrayList<>();
@@ -88,6 +94,8 @@ public class MediaLoader extends LoaderM implements LoaderManager.LoaderCallback
 
     @Override
     public void onLoadFinished(Loader loader, Object o) {
+
+
         if (folders == null || mLoader == null || instance == null) return;
         if (folders.size() > 0) {
             mLoader.onData(folders);
@@ -99,6 +107,7 @@ public class MediaLoader extends LoaderM implements LoaderManager.LoaderCallback
         Folder allVideoDir = new Folder(mContext.getResources().getString(R.string.video_dir_name));
         folders.add(allVideoDir);
         Cursor cursor = (Cursor) o;
+
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA));
@@ -130,17 +139,12 @@ public class MediaLoader extends LoaderM implements LoaderManager.LoaderCallback
 
                 String dirName = getParent(path);
                 if (TextUtils.isEmpty(dirName)) continue;
-                Media media = new Media(path, name, dateTime, mediaType, size, id, dirName, duration, fileUri);
+               Media  media = new Media(path, name, dateTime, mediaType, size, id, dirName, duration, fileUri);
 
                 allFolder.addMedias(media);
                 if (mediaType == 3) {
                     allVideoDir.addMedias(media);
-//                    String thumbnails = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Thumbnails.DATA));
-//                    ContentResolver contentResolver = mContext.getContentResolver();
-//                    media.thumbnails = thumbnails;
                 } else if (mediaType == 1) {
-//                    String thumbnails = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA));
-//                    media.thumbnails = thumbnails;
                 }
 
                 int index = hasDir(folders, dirName);
@@ -155,10 +159,12 @@ public class MediaLoader extends LoaderM implements LoaderManager.LoaderCallback
                     folders.add(folder);
                 }
             }
+            Log.e("获取资源时间:",  System.currentTimeMillis()-startTime+"");
+            startTime=0;
             cursor.close();
+            if (mLoader != null) mLoader.onData(folders);
         }
-//        Log.e(TAG, "数据为空: " + folders.size());
-        if (mLoader != null) mLoader.onData(folders);
+
     }
 
 

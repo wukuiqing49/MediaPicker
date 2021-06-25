@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -14,12 +16,15 @@ import android.text.TextUtils;
 
 
 import com.wkq.base.utils.FileUtils;
+import com.wu.media.ui.widget.record.view.BitmapUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import io.reactivex.Observable;
@@ -62,7 +67,7 @@ public class AlbumProcessUtil {
      * @param file
      * @return
      */
-    private static boolean insertMediaImg(Context context, File file) {
+    public static boolean insertMediaImg(Context context, File file) {
         if (file != null && !file.exists()) {
             return false;
         } else {
@@ -84,7 +89,7 @@ public class AlbumProcessUtil {
      * @param file
      * @return
      */
-    private static void insertMediaPic(Context context, File file) {
+    public static void insertMediaPic(Context context, File file) {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
@@ -100,6 +105,7 @@ public class AlbumProcessUtil {
     private static boolean isAdndroidQ() {
         return Build.VERSION.SDK_INT >= 29;
     }
+
     /*
      * 保存bitmap到本地
      * */
@@ -128,6 +134,7 @@ public class AlbumProcessUtil {
 
     /**
      * 保存bitmap
+     *
      * @param context
      * @param bitmap
      * @param callback
@@ -168,7 +175,7 @@ public class AlbumProcessUtil {
                 @Override
                 public void onNext(String s) {
                     callback.onSuccess(s);
-                    if (bitmap!=null){
+                    if (bitmap != null) {
                         bitmap.recycle();
                     }
                 }
@@ -176,7 +183,7 @@ public class AlbumProcessUtil {
                 @Override
                 public void onError(Throwable e) {
                     callback.onFail("文件保存失败");
-                    if (bitmap!=null){
+                    if (bitmap != null) {
                         bitmap.recycle();
 
                     }
@@ -343,7 +350,7 @@ public class AlbumProcessUtil {
     }
 
 
-    private static String getPath(Context context) {
+    public static String getPath(Context context) {
         String fileName = Environment.getExternalStorageDirectory() + "/strike/current/";
         if (Build.VERSION.SDK_INT >= 29) {
             fileName = context.getExternalFilesDir("").getAbsolutePath();
@@ -419,7 +426,7 @@ public class AlbumProcessUtil {
             fos.flush();
             fos.close();
 
-            saveImageToGallery(context ,filePic,null);
+            saveImageToGallery(context, filePic, null);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -446,7 +453,7 @@ public class AlbumProcessUtil {
             fos.flush();
             fos.close();
 
-            saveImageToGallery(context ,filePic,callback);
+            saveImageToGallery(context, filePic, callback);
         } catch (IOException e) {
             e.printStackTrace();
             callback.onFail(e.getMessage());
@@ -538,5 +545,43 @@ public class AlbumProcessUtil {
         context.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
     }
 
+    /**
+     * 保存拍照图片
+     *
+     * @param imageData
+     * @return
+     */
+    public static String savePhoto(Context context, byte[] imageData) {
+        FileOutputStream fos = null;
+        String cameraPath = getPath(context);
+        //相册文件夹
+        File cameraFolder = new File(cameraPath);
+        if (!cameraFolder.exists()) {
+            cameraFolder.mkdirs();
+        }
+        //保存的图片文件
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String imagePath = cameraPath+ simpleDateFormat.format(new Date()) + ".jpg";
+        File imageFile = new File(imagePath);
+        try {
+            fos = new FileOutputStream(imageFile);
+            fos.write(imageData);
+        } catch (Exception e) {
+            return "";
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                    Bitmap retBitmap = BitmapFactory.decodeFile(imagePath);
+                    retBitmap = BitmapUtils.setTakePicktrueOrientation(Camera.CameraInfo.CAMERA_FACING_BACK, retBitmap);
+                    BitmapUtils.saveBitmap(retBitmap, imagePath);
+                    return imagePath;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
 
 }

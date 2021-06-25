@@ -7,6 +7,7 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -18,6 +19,8 @@ import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
 
+import com.wu.media.ui.widget.record.view.BitmapUtils;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -28,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -38,12 +43,6 @@ import java.lang.reflect.Field;
  * 简介:
  */
 public class AndroidQUtil {
-    //裁剪
-    private static String signImage = "crop";
-    private static String imgPath = "pic";
-
-
-
     /**
      * 判断是不是Android Q  版本
      *
@@ -73,7 +72,20 @@ public class AndroidQUtil {
 
     }
 
+    /**
+     * 通过MediaStore.Images.Media.insertImage接口可以将图片文件保存到/sdcard/Pictures/，
+     * 但是只有图片文件保存可以通过MediaStore的接口保存，其他类型文件无法通过该接口保存；
+     *
+     * @param context
+     * @param bitmap
+     * @param title       标题
+     * @param discription 简介
+     */
+    public static String saveBitmapToFile(Context context, Bitmap bitmap, String title, String discription) {
+        return MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, title, discription);
+    }
 
+    private static String signImage = "crop";
 
 
     /**
@@ -177,21 +189,22 @@ public class AndroidQUtil {
      */
     public static String saveSignImageBox(Context context, String fileName, Bitmap bitmap) {
         //图片沙盒文件夹
+
         try {
             File PICTURES = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             File imageFileDirctory = new File(PICTURES + "/" + signImage);
             if (imageFileDirctory.exists()) {
                 File imageFile = new File(PICTURES + "/" + signImage + "/" + fileName);
                 FileOutputStream fileOutputStream = new FileOutputStream(imageFile, false);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
                 fileOutputStream.flush();
                 return imageFile.getAbsolutePath();
-            } else if (imageFileDirctory.mkdir()) {
+            } else if (imageFileDirctory.mkdir()) {//如果该文件夹不存在，则新建
                 //new一个文件
                 File imageFile = new File(PICTURES + "/" + signImage + "/" + fileName);
                 //通过流将图片写入
                 FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 return imageFile.getAbsolutePath();
@@ -628,17 +641,36 @@ public class AndroidQUtil {
 
     }
 
-    /**
-     * 通过MediaStore.Images.Media.insertImage接口可以将图片文件保存到/sdcard/Pictures/，
-     * 但是只有图片文件保存可以通过MediaStore的接口保存，其他类型文件无法通过该接口保存；
-     *
-     * @param context
-     * @param bitmap
-     * @param title       标题
-     * @param discription 简介
-     */
-    public static String saveBitmapToFile(Context context, Bitmap bitmap, String title, String discription) {
-        return MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, title, discription);
+
+    public static void savePhoto(byte[] imageData) {
+        FileOutputStream fos = null;
+        String cameraPath = Environment.getExternalStorageDirectory().getPath() + File.separator + "DCIM" + File.separator + "Camera";
+        //相册文件夹
+        File cameraFolder = new File(cameraPath);
+        if (!cameraFolder.exists()) {
+            cameraFolder.mkdirs();
+        }
+        //保存的图片文件
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String imagePath = cameraFolder.getAbsolutePath() + File.separator + "IMG_" + simpleDateFormat.format(new Date()) + ".jpg";
+        File imageFile = new File(imagePath);
+        try {
+            fos = new FileOutputStream(imageFile);
+            fos.write(imageData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                    Bitmap retBitmap = BitmapFactory.decodeFile(imagePath);
+                    retBitmap = BitmapUtils.setTakePicktrueOrientation(Camera.CameraInfo.CAMERA_FACING_BACK, retBitmap);
+                    BitmapUtils.saveBitmap(retBitmap, imagePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

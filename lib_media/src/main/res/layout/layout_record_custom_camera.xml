@@ -5,10 +5,17 @@
 
 
     <RelativeLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/transparent">
 
+        <com.wu.media.ui.widget.record.FoucsView
+            android:id="@+id/fv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,13 +45,13 @@
         </LinearLayout>
 
         <TextView
-            android:textColor="@color/imagepicker_text_white"
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/rl_bottom"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/imagepicker_text_white" />
 
         <RelativeLayout
             android:id="@+id/rl_bottom"

@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -210,11 +209,8 @@ public class DiyCameraActivity extends AppCompatActivity  {
                     }else {
                         media = new Media(file.getPath(), file.getName(), enddutain, 3, file.length(), 0, "", enddutain,"");
                     }
-
-
                     medias.add(media);
                     oldlist.add(media);
-                    //  CircleData.ReleaseVideoTypeListBean releaseVideoTypeListBean = releaseVideoTypeListBeans.get(0);
                     intent.putParcelableArrayListExtra(PickerConfig.EXTRA_RESULT, oldlist);
                     intent.putExtra("isCircleVideo", "cancircle");
                     setResult(resultCode, intent);

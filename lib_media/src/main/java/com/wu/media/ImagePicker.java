@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 
 
+import com.wu.media.camera.ui.CustomCameraActivity;
 import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Media;
 import com.wu.media.model.ImagePickerCropParams;
@@ -111,6 +112,12 @@ public class ImagePicker {
         intent.putExtra(PickerConfig.CURRENT_POSITION, position);
         intent.putExtra(PickerConfig.RESULT_CODE, resultCode);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public void startNewCam(Activity activity) {
+
+        Intent intent = new Intent(activity, CustomCameraActivity.class);
+        activity.startActivity(intent);
     }
 
     public static final class Builder {
