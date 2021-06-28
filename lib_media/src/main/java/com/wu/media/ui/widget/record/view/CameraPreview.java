@@ -1,5 +1,8 @@
 package com.wu.media.ui.widget.record.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +16,17 @@ import android.hardware.SensorManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
+import com.wu.media.ui.widget.record.FoucsView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
 
 import com.wkq.base.utils.AlertUtil;
 import com.wkq.base.utils.toast.ToastUtil;
@@ -105,12 +112,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         if (holder.getSurface() == null) {
             return;
         }
-
-        try {
-            resume();
-        } catch (Exception e) {
-            if (mOnErroListener != null) mOnErroListener.onErro("相机异常");
-        }
+        resume();
     }
 
     @Override
@@ -125,12 +127,23 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void resume() {
-        if (mCamera == null) {
-            openCamera(id);
-            previewCamera(getHolder());
+        try {
+            if (mCamera == null) {
+                openCamera(id);
+                previewCamera(getHolder());
+            }
+        } catch (Exception e) {
+            if (mOnErroListener != null) mOnErroListener.onErro("相机异常");
         }
 
     }
+    private float oldDist = 1f;
+    private static float getFingerSpacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
 
     /**
      * 初始化
@@ -595,6 +608,21 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             }
         }
     }
-
+    public void handleZoom(boolean isZoomIn) {
+        Camera.Parameters params = mCamera.getParameters();
+        if (params.isZoomSupported()) {
+            int maxZoom = params.getMaxZoom();
+            int zoom = params.getZoom();
+            Log.e("放大缩小:",zoom+":最大:"+maxZoom);
+            if (isZoomIn && zoom < maxZoom) {
+                zoom++;
+            } else if (zoom > 0) {
+                zoom--;
+            }
+            params.setZoom(zoom);
+            mCamera.setParameters(params);
+        } else {
+        }
+    }
 
 }

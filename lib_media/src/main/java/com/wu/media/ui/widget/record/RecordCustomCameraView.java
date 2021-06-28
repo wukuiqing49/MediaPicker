@@ -9,6 +9,7 @@ import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -90,6 +91,17 @@ public class RecordCustomCameraView extends FrameLayout {
 
     }
 
+    /**
+     * 是否多点
+     */
+    private boolean isMultiTouch = false;
+    private float oldDist = 1f;
+
+    private static float getFingerSpacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
+    }
     private void initView() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.layout_record_custom_camera, this, false);
         addView(binding.getRoot());
@@ -139,9 +151,36 @@ public class RecordCustomCameraView extends FrameLayout {
         binding.parent.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    moveFocus(event.getRawX(), event.getRawY());
+                if (event.getPointerCount() == 1) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_POINTER_UP:
+                            isMultiTouch = true;
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            if (!isMultiTouch) {
+                                moveFocus(event.getRawX(), event.getRawY());
+                            }
+                            isMultiTouch = false;
+                            break;
+                    }
+                }else {
+                    isMultiTouch = true;
+                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                        case MotionEvent.ACTION_POINTER_DOWN:
+                            oldDist = getFingerSpacing(event);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            float newDist = getFingerSpacing(event);
+                            if (newDist > oldDist) {
+                                preview.handleZoom(true);
+                            } else if (newDist < oldDist) {
+                                preview.handleZoom(false);
+                            }
+                            oldDist = newDist;
+                            break;
+                    }
                 }
+
                 return true;
             }
         });

@@ -41,7 +41,7 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
     @Override
     protected void onResume() {
         super.onResume();
-//        binding.rcc.preview.resume();
+        binding.rcc.preview.resume();
     }
 
 
