@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 
 
-import com.wu.media.camera.ui.CustomCameraActivity;
+import com.wu.media.ui.activity.CustomCameraActivity;
 import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Media;
 import com.wu.media.model.ImagePickerCropParams;
@@ -115,9 +115,8 @@ public class ImagePicker {
     }
 
     public void startNewCam(Activity activity) {
-
         Intent intent = new Intent(activity, CustomCameraActivity.class);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, mOptions.resultCode);
     }
 
     public static final class Builder {
@@ -160,6 +159,10 @@ public class ImagePicker {
 
         public Builder setJumpCameraMode(int cameraMode) {
             mOptions.setJumpCameraMode(cameraMode);
+            return this;
+        }
+        public Builder setResultCode(int resultCode) {
+            mOptions.setResultCode(resultCode);
             return this;
         }
 

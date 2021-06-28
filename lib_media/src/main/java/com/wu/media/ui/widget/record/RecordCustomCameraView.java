@@ -34,6 +34,7 @@ import com.wu.media.ui.widget.record.listener.ShootViewClickListener;
 import com.wu.media.ui.widget.record.observable.RecordCameraViewObservable;
 import com.wu.media.ui.widget.record.view.CameraPreview;
 import com.wu.media.utils.ScreenUtils;
+import com.wu.media.utils.observable.MediaShowObservable;
 
 
 /**
@@ -102,6 +103,7 @@ public class RecordCustomCameraView extends FrameLayout {
         float y = event.getY(0) - event.getY(1);
         return (float) Math.sqrt(x * x + y * y);
     }
+
     private void initView() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.layout_record_custom_camera, this, false);
         addView(binding.getRoot());
@@ -120,7 +122,10 @@ public class RecordCustomCameraView extends FrameLayout {
                 if (preview != null) preview.takePhoto(new CameraPreviewListener() {
                     @Override
                     public void onResult(String filePath) {
-                        ToastUtil.newBuild().build(mContext).showToast(filePath);
+                        MediaShowObservable.MediaShowInfo info = new MediaShowObservable.MediaShowInfo();
+                        info.setType(0);
+                        info.setFilePath(filePath);
+                        MediaShowObservable.getInstance().setMediaShowInfo(info);
                     }
                 });
             }
@@ -130,7 +135,10 @@ public class RecordCustomCameraView extends FrameLayout {
                 if (preview != null) preview.stopRecord(new CameraInterface.StopRecordCallback() {
                     @Override
                     public void recordResult(String url) {
-                        ToastUtil.newBuild().build(mContext).showToast(url);
+                        MediaShowObservable.MediaShowInfo info = new MediaShowObservable.MediaShowInfo();
+                        info.setType(1);
+                        info.setFilePath(url);
+                        MediaShowObservable.getInstance().setMediaShowInfo(info);
                     }
                 });
             }
@@ -163,7 +171,7 @@ public class RecordCustomCameraView extends FrameLayout {
                             isMultiTouch = false;
                             break;
                     }
-                }else {
+                } else {
                     isMultiTouch = true;
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
                         case MotionEvent.ACTION_POINTER_DOWN:

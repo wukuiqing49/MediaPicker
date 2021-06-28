@@ -37,6 +37,8 @@ public class PickerConfig {
     public static final String INTENT_KEY_ORIGIN_PATH = "originPath";
     //结果的Code
     public static final String RESULT_CODE = "result_code";
+    //相机拍照类型
+    public static final String CAMERA_TYPE = "camera_type";
     /**
      * 拍照存储位置
      */

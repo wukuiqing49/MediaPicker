@@ -641,4 +641,39 @@ public class GlideCacheUtil {
         }
     }
 
+    @SuppressLint("CheckResult")
+    public static void intoItemImageBitmap(Context context, String path, ImageView view) {
+        if (context == null || path == null || view == null) return;
+
+        RequestOptions option = new RequestOptions();
+        try {
+
+            RequestManager rm = Glide.with(context);
+            RequestBuilder rb = null;
+            option = option
+                    .dontTransform()
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .dontAnimate();
+            option.error(R.drawable.iv_imgload_full_err);
+
+            rb = rm.load(path);
+
+            rb.listener(new RequestListener() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+                    view.setScaleType(ImageView.ScaleType.CENTER);
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            });
+            rb.apply(option).into(view);
+        } catch (Exception e) {
+
+        }
+    }
+
 }

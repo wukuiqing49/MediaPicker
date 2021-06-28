@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_new:
                 //打开预览
                 new ImagePicker.Builder()
+                        .maxTime(10*1000)
                         .builder().startNewCam(this);
                 break;
         }

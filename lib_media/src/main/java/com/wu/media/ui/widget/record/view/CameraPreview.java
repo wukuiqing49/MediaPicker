@@ -596,7 +596,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 isRecorder = false;
             }
             doDestroyCamera();
-
+            callback.recordResult(videoPath);
             if (mCamera == null) {
                 openCamera(id);
                 findAvailableCameras();

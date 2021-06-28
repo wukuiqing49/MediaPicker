@@ -30,7 +30,7 @@
             android:theme="@style/FullActivityThemeStyle"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".camera.ui.CustomCameraActivity"
+            android:name=".ui.activity.CustomCameraActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:launchMode="singleTop"
             android:theme="@style/FullActivityThemeStyle"

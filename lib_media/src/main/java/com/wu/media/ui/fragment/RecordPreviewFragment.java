@@ -15,6 +15,7 @@ import com.wkq.base.utils.DoublePressed;
 import com.wu.media.R;
 import com.wu.media.databinding.FragmentRecordPreviewBinding;
 import com.wu.media.presenter.RecordPreviewPresenter;
+import com.wu.media.ui.activity.CustomCameraActivity;
 import com.wu.media.ui.activity.RecordActivity;
 import com.wu.media.ui.activity.VideoPlayerActivity;
 import com.wu.media.view.RecordPreviewView;
@@ -44,7 +45,7 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         }
     };
-    private RecordActivity mActivity;
+    private CustomCameraActivity mActivity;
 
 
     public static RecordPreviewFragment newInstance(int type, String path) {
@@ -74,7 +75,7 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mActivity = (RecordActivity) getActivity();
+        mActivity = (CustomCameraActivity) getActivity();
         binding.setOnClick(this);
         if (getMvpView() != null) getMvpView().initView(mActivity);
 
@@ -84,7 +85,6 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
     public void onResume() {
         super.onResume();
         if (type == 1 && getMvpView() != null) {
-            getMvpView().initPre();
         }
     }
 

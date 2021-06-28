@@ -11,5 +11,12 @@
             android:layout_height="match_parent"
             android:id="@+id/rcc"/>
 
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/fragment"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </RelativeLayout>
 </layout>

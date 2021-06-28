@@ -48,6 +48,7 @@ public class ImagePickerOptions implements Parcelable {
     public boolean isReturnUri = false;
     //直接跳转相机 控制相机的模式 0 全支持  1 照片 2 视频
     public int jumpCameraMode = -1;
+    public int resultCode = 10086;
     public boolean  isPreview = false;
     public boolean isPreview() {
         return isPreview;
@@ -195,6 +196,9 @@ public class ImagePickerOptions implements Parcelable {
     public void setReturnUri(boolean isReturnUri) {
         this.isReturnUri = isReturnUri;
     }
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
+    }
 
 
     @Override
@@ -208,6 +212,7 @@ public class ImagePickerOptions implements Parcelable {
         maxImageSize = in.readLong();
         needCamera = in.readByte() != 0;
         selectMode = in.readInt();
+        resultCode = in.readInt();
         selects = in.createTypedArrayList(Media.CREATOR);
         cachePath = in.readString();
         videoTrimPath = in.readString();
@@ -242,6 +247,7 @@ public class ImagePickerOptions implements Parcelable {
         dest.writeLong(maxImageSize);
         dest.writeByte((byte) (needCamera ? 1 : 0));
         dest.writeInt(selectMode);
+        dest.writeInt(resultCode);
         dest.writeTypedList(selects);
         dest.writeString(cachePath);
         dest.writeString(videoTrimPath);
