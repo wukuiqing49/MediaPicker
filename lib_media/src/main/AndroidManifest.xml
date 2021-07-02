@@ -64,6 +64,6 @@
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
             android:theme="@style/FullActivityThemeStyle" />
-
+        <activity android:name="com.huawei.hms.hmsscankit.ScanKitActivity" />
     </application>
 </manifest>

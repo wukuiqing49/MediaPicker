@@ -1,6 +1,11 @@
 package com.wu.media.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +17,29 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.wkq.base.utils.StringUtils;
 import com.wu.media.PickerConfig;
 import com.wu.media.R;
 import com.wu.media.databinding.MediaImageItemBinding;
 import com.wu.media.media.entity.Media;
 import com.wu.media.model.ImagePickerOptions;
+import com.wu.media.utils.AndroidQUtil;
 import com.wu.media.utils.FileUtils;
 import com.wu.media.utils.GlideCacheUtil;
 import com.wu.media.utils.ScreenUtils;
+
+import java.io.File;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -120,6 +139,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
         Media mMedia = getItem(position);
         binding = (MediaImageItemBinding) mediaViewHolder.getBinding();
         GlideCacheUtil.intoItemImageThumbnail(mContext, mMedia, binding.mediaImage, null);
+//        processQr(binding, mMedia);
         if (mMedia.mediaType == 1) {
             binding.videoInfo.setVisibility(View.GONE);
         } else if (mMedia.mediaType == 3) {
@@ -141,6 +161,52 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
             if (listener != null) listener.itemClick(mMedia);
         });
 
+    }
+
+    private void processQr(MediaImageItemBinding binding, Media mMedia) {
+
+        if (mMedia == null || mMedia.mediaType == 3 || binding == null) return;
+
+        Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+
+                HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(),  Uri.parse(mMedia.fileUri));
+                HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
+                if (hmsScans.length > 0) {
+                    emitter.onNext(true);
+                } else {
+                    emitter.onNext(false);
+                }
+            }
+
+
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Boolean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Boolean s) {
+                if (s) {
+                    binding.ivQr.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivQr.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     /**

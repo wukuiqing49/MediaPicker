@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.wu.demo.databinding.ActivityMainBinding;
 import com.wu.media.ImagePicker;
 import com.wu.media.PickerConfig;
@@ -89,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new ImagePicker.Builder()
                         .maxTime(10*1000)
                         .builder().startNewCam(this);
+                break;
+            case R.id.bt_qr:
+                //打开预览
+                ScanUtil.startScan(this, 10010, new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE).create());
+
                 break;
         }
     }
