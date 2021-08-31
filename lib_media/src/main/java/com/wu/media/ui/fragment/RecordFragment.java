@@ -107,12 +107,6 @@ public class RecordFragment extends MvpBindingFragment<RecordFragmentView, Recor
     public void onResume() {
         super.onResume();
         if (!permission) return;
-
-//        if (isFlash && getMvpView() != null) getMvpView().processFlash(isFlash);
-//        if (plShortVideoRecorder != null) {
-//            plShortVideoRecorder.resume();
-//            plShortVideoRecorder.deleteLastSection();
-//        }
     }
 
     @Override
@@ -121,10 +115,6 @@ public class RecordFragment extends MvpBindingFragment<RecordFragmentView, Recor
         if (!permission) return;
 
         isRecordIng = false;
-//        if (plShortVideoRecorder != null) {
-//            binding.rcControl.resetRecord();
-//            plShortVideoRecorder.pause();
-//        }
     }
 
     @Override
@@ -133,109 +123,15 @@ public class RecordFragment extends MvpBindingFragment<RecordFragmentView, Recor
         if (!permission) return;
 
         RecordCameraViewObservable.newInstance().deleteObserver(this);
-//        if (plShortVideoRecorder != null) {
-//            plShortVideoRecorder.destroy();
-//        }
     }
 
 
     @Override
     public void update(Observable o, Object arg) {
-//        if (o instanceof RecordCameraViewObservable) {
-//            int state = (int) arg;
-////            if (plShortVideoRecorder == null || getMvpView() == null) return;
-//            //闪光灯
-//            if (state == RecordCameraViewObservable.CLICK_FLASH) {
-//                if (isRecordIng) {
-//                    getMvpView().showMesage("录制中...");
-//                } else {
-////                    if (plShortVideoRecorder.isFlashSupport()) {
-////                        isFlash = (!isFlash);
-////                        plShortVideoRecorder.setFlashEnabled(isFlash);
-////                        getMvpView().processFlash(isFlash);
-////                    } else {
-////                        isFlash = false;
-////                        getMvpView().processFlash(false);
-////                        getMvpView().showMesage("暂不支持闪光灯");
-////                    }
-//                }
-//
-//            } else if (state == RecordCameraViewObservable.CLICK_SWITCH) {
-//                if (isRecordIng) {
-//                    //设置前后摄像头
-//                    getMvpView().showMesage("录制中...");
-//
-//                } else {
-////                    if (DoublePressed.onDoublePressed()) return;
-////                    plShortVideoRecorder.switchCamera();
-//                }
-//            } else if (state == RecordCameraViewObservable.CLICK_FINISH) {
-//                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-//            } else if (state == RecordCameraViewObservable.CLICK_TAKE) {
-//                //拍照
-//                if (isReady) {
-////                    plShortVideoRecorder.captureFrame(new PLCaptureFrameListener() {
-////                        @Override
-////                        public void onFrameCaptured(PLVideoFrame plVideoFrame) {
-////                            Bitmap plbitMap = plVideoFrame.toBitmap();
-////
-////                            if (plbitMap != null && plbitMap.getByteCount() > 0) {
-////                                getMvpView().getActivity().showPreViewImg(plbitMap);
-////                            } else {
-////                                getMvpView().showMesage("图片拍摄异常");
-////                            }
-////                        }
-////                    });
-//                }
-//
-//
-//            } else if (state == RecordCameraViewObservable.CLICK_RECODE_START) {
-//                //视频录制开始
-//                if (isReady) {
-//                    isRecordIng = true;
-////                    plShortVideoRecorder.deleteLastSection();
-////                    plShortVideoRecorder.beginSection();
-//                } else {
-//                    isRecordIng = false;
-//                    getMvpView().showMesage("相机还未准备完成,请稍后");
-//                }
-//            } else if (state == RecordCameraViewObservable.CLICK_RECODE_FINISH) {
-//                //录制完成
-//                plShortVideoRecorder.endSection();
-//                plShortVideoRecorder.concatSections(new PLVideoSaveListener() {
-//                    //视频保存完成
-//                    @Override
-//                    public void onSaveVideoSuccess(String s) {
-//                        if (!TextUtils.isEmpty(s)) {
-//                            isRecordIng = false;
-//                            getMvpView().getActivity().showVideo(s);
-//                        } else {
-//                            getMvpView().showMesage("视频录制异常");
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onSaveVideoFailed(int i) {
-//                        isRecordIng = false;
-//                        if (getMvpView() != null) getMvpView().showMesage("视频录制失败");
-//                    }
-//
-//                    @Override
-//                    public void onSaveVideoCanceled() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onProgressUpdate(float v) {
-//
-//                    }
-//                });
-//
-//            } else if (state == RecordCameraViewObservable.CLICK_RECODE_ERR) {
-//                isRecordIng = false;
-//
-//            }
-//        }
+        if (o instanceof RecordCameraViewObservable){
+            int type =(int) arg;
+            if (type==RecordCameraViewObservable.CLICK_FINISH) callback.handleOnBackPressed();
+        }
     }
 
 }

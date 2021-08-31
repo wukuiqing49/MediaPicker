@@ -87,23 +87,18 @@ public class RecordPreviewView implements MvpView {
         AlertUtil.showSuccessToast(mFragment.getActivity(), message);
     }
 
-    public void savePic(CustomCameraActivity mActivity) {
+    public void savePic(String path) {
 
-//        AlbumProcessUtil.saveBitmap(mActivity, mActivity.preBitmap, new OnSaveCallback() {
-//            @Override
-//            public void onSuccess(String path) {
-//                File file = new File(path);
-//                if (file != null && file.exists() && file.canRead() && file.canWrite()) {
+        AlbumProcessUtil.saveImageToGallery(mFragment.getActivity(), new File(path), new OnSaveCallback() {
+            @Override
+            public void onSuccess(String path) {
+                File file = new File(path);
+                if (file != null && file.exists() && file.canRead() && file.canWrite()) {
 //
 //                    Uri uri = FileProvider.getUriForFile(mFragment.getActivity(), mFragment.getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
 //                    Media media = new Media(path, file.getName(), System.currentTimeMillis(), 1, file.length(), (int) System.currentTimeMillis(), file.getParent(), uri.toString());
 //                    media.setSelect(false);
-//                    media.setReturnUri(mActivity.mOptions.isReturnUri());
-//                    if (mActivity.preBitmap != null && mActivity.preBitmap.getHeight() > 0 && mActivity.preBitmap.getWidth() > 0) {
-//                        media.setImgHeight(mActivity.preBitmap.getHeight());
-//                        media.setImgWidth(mActivity.preBitmap.getWidth());
-//                        media.setLongImg(MediaUtils.isLongImg(mActivity.preBitmap.getWidth(), mActivity.preBitmap.getHeight()));
-//                    }
+//                    media.setReturnUri(mFragment.getActivity().mOptions.isReturnUri());
 //                    if (mActivity.mOptions.needCrop) {
 //                        ImageCropActivity.start(mActivity, path, mActivity.mOptions);
 //                    } else if (mActivity.mOptions.isSinglePick() || mActivity.mOptions.getMaxImageSize() == 1) {
@@ -121,17 +116,17 @@ public class RecordPreviewView implements MvpView {
 //                        MediaAddObservable.getInstance().addMedia(media);
 //                        mActivity.finish();
 //                    }
-//
-//                } else {
-//                    mFragment.requireActivity().getOnBackPressedDispatcher().onBackPressed();
-//                }
-//            }
-//
-//            @Override
-//            public void onFail(String message) {
-//                showMessage("图片保存异常");
-//            }
-//        });
+
+                } else {
+                    mFragment.requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+
+            @Override
+            public void onFail(String message) {
+                showMessage("图片保存异常");
+            }
+        });
     }
 
     public void saveVideo(CustomCameraActivity mActivity) {

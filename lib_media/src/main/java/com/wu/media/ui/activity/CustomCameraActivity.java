@@ -15,6 +15,7 @@ import com.wu.media.camera.frame.view.CustomCameraCameraView;
 import com.wu.media.databinding.ActivityCustomCameraBinding;
 import com.wu.media.model.ImagePickerOptions;
 import com.wu.media.ui.fragment.RecordPreviewFragment;
+import com.wu.media.ui.widget.record.observable.RecordCameraViewObservable;
 import com.wu.media.utils.observable.MediaShowObservable;
 
 import java.util.Observable;
@@ -23,7 +24,7 @@ import java.util.Observer;
 /**
  * @author wkq
  * @date 2021年06月24日 15:14
- * @des 自定义相机
+ * @des 新版本自定义相机
  */
 
 public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraView, CustomCameraCameraPresenter, ActivityCustomCameraBinding> implements Observer {
@@ -58,6 +59,7 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
         super.onCreate(savedInstanceState);
         getPresenter().initData(this);
         MediaShowObservable.getInstance().addObserver(this);
+        RecordCameraViewObservable.newInstance().addObserver(this);
         getMvpView().initView();
 
     }
@@ -78,6 +80,7 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
     protected void onDestroy() {
         super.onDestroy();
         MediaShowObservable.getInstance().deleteObserver(this);
+        RecordCameraViewObservable.newInstance().deleteObserver(this);
     }
 
     @Override
@@ -87,7 +90,8 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
             finish();
         } else {
             if (currentFragment instanceof RecordPreviewFragment) {
-              getMvpView().processShowView();
+//              getMvpView().processShowView();
+                finish();
             } else {
                 finish();
             }
@@ -101,6 +105,9 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
         if (o instanceof MediaShowObservable && arg != null) {
             MediaShowObservable.MediaShowInfo info = (MediaShowObservable.MediaShowInfo) arg;
             getMvpView().processFile(info);
+        }else  if (o instanceof RecordCameraViewObservable){
+            int type =(int ) arg;
+            if (type==RecordCameraViewObservable.CLICK_FINISH)finish();
         }
     }
 }

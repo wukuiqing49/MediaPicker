@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+
 }
 
 android {
@@ -36,8 +37,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled true
+    buildFeatures{
+        dataBinding = true
     }
     dexOptions {
         javaMaxHeapSize '4g'

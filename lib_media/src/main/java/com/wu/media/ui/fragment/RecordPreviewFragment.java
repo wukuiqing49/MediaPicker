@@ -122,7 +122,7 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
         } else if (v.getId() == R.id.tb_ok) {
             if (getMvpView() == null || DoublePressed.onDoublePressed()) return;
             if (type == 0) {
-                getMvpView().savePic(mActivity);
+                getMvpView().savePic(path);
             } else if (type == 1) {
                 getMvpView().saveVideo(mActivity);
             }
