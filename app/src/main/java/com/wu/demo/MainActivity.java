@@ -1,14 +1,14 @@
 package com.wu.demo;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainBinding.setOnClick(this);
-
-
         boolean isAndroidQ = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
         File fileQ = getExternalFilesDir("");
         File file = Environment.getExternalStorageDirectory();
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
