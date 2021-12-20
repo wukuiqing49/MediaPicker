@@ -101,13 +101,6 @@ public class ImageCropView implements MvpView {
         if (file != null && file.exists() && file.canRead() && file.canWrite()) {
             Media media = new Media(path, file.getName(), System.currentTimeMillis(), 1, file.length(), (int) System.currentTimeMillis(), file.getParent(), Uri.fromFile(file).toString());
             media.setSelect(false);
-            media.setReturnUri(mActivity.mOptions.isReturnUri());
-//            if (mActivity.preBitmap != null && mActivity.preBitmap.getHeight() > 0 && mActivity.preBitmap.getWidth() > 0) {
-//                media.setImgHeight(mActivity.preBitmap.getHeight());
-//                media.setImgWidth(mActivity.preBitmap.getWidth());
-//                media.setLongImg(MediaUtils.isLongImg(mActivity.preBitmap.getWidth(), mActivity.preBitmap.getHeight()));
-//            }
-
             MeidaResultObservable.getInstance().finishMedia(true, media);
             mActivity.finish();
         }
@@ -129,11 +122,5 @@ public class ImageCropView implements MvpView {
         if (TextUtils.isEmpty(message) || mActivity.isFinishing()) return;
         AlertUtil.showDeftToast(mActivity, message);
     }
-
-    public void showSucessMessage(String message) {
-        if (TextUtils.isEmpty(message) || mActivity.isFinishing()) return;
-        AlertUtil.showSuccessToast(mActivity, message);
-    }
-
 
 }

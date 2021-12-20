@@ -6,13 +6,11 @@ import android.content.Intent;
 
 
 import com.wu.media.ui.activity.CustomCameraActivity;
-import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Media;
 import com.wu.media.model.ImagePickerCropParams;
 import com.wu.media.model.ImagePickerOptions;
 import com.wu.media.ui.activity.MediaActivity;
 import com.wu.media.ui.activity.MediaPreviewActivity;
-import com.wu.media.ui.activity.RecordActivity;
 
 import java.util.ArrayList;
 
@@ -63,32 +61,7 @@ public class ImagePicker {
     }
 
 
-    /**
-     * 图片选择
-     *
-     * @param activity
-     * @param requestCode 请求码
-     * @param resultCode  结果码
-     */
-    public void startCamera(Activity activity, int requestCode, int resultCode) {
-        Intent intent = new Intent(activity, RecordActivity.class);
-        intent.putExtra(PickerConfig.INTENT_KEY_OPTIONS, mOptions);
-        intent.putExtra(PickerConfig.RESULT_CODE, resultCode);
-        intent.putExtra(PickerConfig.WHERE_JUMP_CAMERA, true);
-        activity.startActivityForResult(intent, requestCode);
-    }
 
-    /**
-     * 图片选择
-     *
-     * @param activity
-     * @param requestCode 请求码
-     * @param resultCode  结果码
-     */
-    public void startCamera(Activity activity, ArrayList<Media> selectMedia, int requestCode, int resultCode) {
-        if (selectMedia==null)selectMedia=new ArrayList<>();
-        DiyCameraActivity.start( activity, mOptions.cachePath,selectMedia,requestCode,resultCode,259,"");
-    }
 
     /**
      * 图片选择
@@ -116,8 +89,29 @@ public class ImagePicker {
 
     public void startNewCam(Activity activity) {
         Intent intent = new Intent(activity, CustomCameraActivity.class);
+        intent.putExtra(PickerConfig.INTENT_KEY_OPTIONS, mOptions);
+        intent.putExtra(PickerConfig.WHERE_JUMP_CAMERA, true);
         activity.startActivityForResult(intent, mOptions.resultCode);
     }
+
+    /**
+     * 图片选择
+     *
+     * @param activity
+     * @param requestCode 请求码
+     * @param resultCode  结果码
+     */
+    public void startCamera(Activity activity, ArrayList<Media> selectMedia,int requestCode, int resultCode) {
+        if (selectMedia==null)selectMedia=new ArrayList<>();
+        Intent intent = new Intent(activity, CustomCameraActivity.class);
+        intent.putExtra(PickerConfig.INTENT_KEY_OPTIONS, mOptions);
+        intent.putExtra(PickerConfig.RESULT_CODE, resultCode);
+        intent.putExtra(PickerConfig.WHERE_JUMP_CAMERA, true);
+        intent.putParcelableArrayListExtra(PickerConfig.WHERE_JUMP_CAMERA_SELECTS, selectMedia);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+
 
     public static final class Builder {
         private ImagePickerOptions mOptions;

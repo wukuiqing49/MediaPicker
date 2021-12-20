@@ -57,13 +57,15 @@ public class PickerConfig {
     //只能选择一种类型
     public static final int PICKER_ONLY_ONE_TYPE = 103;
     //视频选一个 图片选九个
-    public static final int PICKER_ONE_VIDEO_TYPE = 103;
+    public static final int PICKER_ONE_VIDEO_TYPE = 104;
     //展示图片的列数行数
     public static int GridSpanCount = 4;
     public static int GridSpace = 4;
 
     //裁剪请求码
     public static final int REQUEST_CODE_CROP = 113;
+    //是否裁剪
+    public static final String IS_CROP = "isCrop";
     //打开相机的权限请求有吗
     public static final int REQUEST_CODE_PERMISSION_CAMERA = 111;
     public static final int REQUEST_CODE_PERMISSION_READ = 112;

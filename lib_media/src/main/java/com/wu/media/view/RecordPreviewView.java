@@ -76,7 +76,6 @@ public class RecordPreviewView implements MvpView {
     }
 
 
-
     public void showMessage(String message) {
         if (mFragment == null || TextUtils.isEmpty(message)) return;
         AlertUtil.showDeftToast(mFragment.getActivity(), message);
@@ -94,28 +93,33 @@ public class RecordPreviewView implements MvpView {
             public void onSuccess(String path) {
                 File file = new File(path);
                 if (file != null && file.exists() && file.canRead() && file.canWrite()) {
-//
-//                    Uri uri = FileProvider.getUriForFile(mFragment.getActivity(), mFragment.getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
-//                    Media media = new Media(path, file.getName(), System.currentTimeMillis(), 1, file.length(), (int) System.currentTimeMillis(), file.getParent(), uri.toString());
-//                    media.setSelect(false);
-//                    media.setReturnUri(mFragment.getActivity().mOptions.isReturnUri());
-//                    if (mActivity.mOptions.needCrop) {
-//                        ImageCropActivity.start(mActivity, path, mActivity.mOptions);
-//                    } else if (mActivity.mOptions.isSinglePick() || mActivity.mOptions.getMaxImageSize() == 1) {
-//                        MeidaResultObservable.getInstance().finishMedia(true, media);
-//                        mActivity.finish();
-//                    } else if (mActivity.isJumpCamera) {
-//                        if (mActivity.selectMedia == null)
-//                            mActivity.selectMedia = new ArrayList<Media>();
-//                        mActivity.selectMedia.add(media);
-//                        Intent intent = new Intent();
-//                        intent.putParcelableArrayListExtra(PickerConfig.EXTRA_RESULT, mActivity.selectMedia);
-//                        mActivity.setResult(mActivity.resultCode, intent);
-//                        mActivity.finish();
-//                    } else {
-//                        MediaAddObservable.getInstance().addMedia(media);
-//                        mActivity.finish();
-//                    }
+
+                    Uri uri = FileProvider.getUriForFile(mFragment.getActivity(), mFragment.getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
+                    Media media = new Media(path, file.getName(), System.currentTimeMillis(), 1, file.length(), (int) System.currentTimeMillis(), file.getParent(), uri.toString());
+                    media.setSelect(false);
+                    media.setReturnUri(mFragment.mActivity.mOptions.isReturnUri());
+                    if (mFragment.mActivity.preBitmap != null && mFragment.mActivity.preBitmap.getHeight() > 0 && mFragment.mActivity.preBitmap.getWidth() > 0) {
+                        media.setImgHeight(mFragment.mActivity.preBitmap.getHeight());
+                        media.setImgWidth(mFragment.mActivity.preBitmap.getWidth());
+                        media.setLongImg(MediaUtils.isLongImg(mFragment.mActivity.preBitmap.getWidth(), mFragment.mActivity.preBitmap.getHeight()));
+                    }
+                    if (mFragment.mActivity.mOptions.needCrop) {
+                        ImageCropActivity.start(mFragment.mActivity, path, mFragment.mActivity.mOptions);
+                    } else if (mFragment.mActivity.mOptions.isSinglePick() || mFragment.mActivity.mOptions.getMaxImageSize() == 1) {
+                        MeidaResultObservable.getInstance().finishMedia(true, media);
+                        mFragment.mActivity.finish();
+                    } else if (mFragment.mActivity.isJumpCamera) {
+                        if (mFragment.mActivity.selectMedia == null)
+                            mFragment.mActivity.selectMedia = new ArrayList<Media>();
+                        mFragment.mActivity.selectMedia.add(media);
+                        Intent intent = new Intent();
+                        intent.putParcelableArrayListExtra(PickerConfig.EXTRA_RESULT, mFragment.mActivity.selectMedia);
+                        mFragment.mActivity.setResult(mFragment.mActivity.resultCode, intent);
+                        mFragment.mActivity.finish();
+                    } else {
+                        MediaAddObservable.getInstance().addMedia(media);
+                        mFragment.mActivity.finish();
+                    }
 
                 } else {
                     mFragment.requireActivity().getOnBackPressedDispatcher().onBackPressed();
@@ -130,28 +134,23 @@ public class RecordPreviewView implements MvpView {
     }
 
     public void saveVideo(CustomCameraActivity mActivity) {
-//        if (mMediaFile == null || mActivity == null) return;
-//        File file = new File(mMediaFile.getFilepath());
-//        Uri uri = FileProvider.getUriForFile(mFragment.getActivity(), mFragment.getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
-//        Media media = new Media(mMediaFile.getFilepath(), file.getName(), System.currentTimeMillis(), 3, file.length(), (int) System.currentTimeMillis(), file.getParent(), (int) mMediaFile.getDurationMs(), uri.toString());
-//        media.setImgWidth(mMediaFile.getVideoWidth());
-//        media.setImgHeight(mMediaFile.getVideoHeight());
-//        media.setSelect(false);
-//        media.setReturnUri(mActivity.mOptions.isReturnUri());
-//        if (mActivity.isJumpCamera) {
-//            MeidaResultObservable.getInstance().finishMedia(true, media);
-//        } else if (mActivity.mOptions.isSinglePick() || mActivity.mOptions.getMaxImageSize() == 1) {
-//            MeidaResultObservable.getInstance().finishMedia(true, media);
-//            mActivity.finish();
-//        } else if (mActivity.mOptions.needCrop) {
-//            RecordActivity.newInstance(mActivity, mActivity.mOptions);
-//            mActivity.finish();
-//        } else {
-//            MediaAddObservable.getInstance().addMedia(media);
-//            mActivity.finish();
-//        }
-//
-//        mMediaFile.release();
-
+        if (mFragment.path == null || mActivity == null) return;
+        File file = new File(mFragment.path);
+        Uri uri = FileProvider.getUriForFile(mFragment.getActivity(), mFragment.getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
+        Media media = new Media(mFragment.path, file.getName(), System.currentTimeMillis(), 3, file.length(), (int) System.currentTimeMillis(), file.getParent(), (int) 0, uri.toString());
+        media.setSelect(false);
+        media.setReturnUri(mActivity.mOptions.isReturnUri());
+        if (mActivity.isJumpCamera) {
+            MeidaResultObservable.getInstance().finishMedia(true, media);
+        } else if (mActivity.mOptions.isSinglePick() || mActivity.mOptions.getMaxImageSize() == 1) {
+            MeidaResultObservable.getInstance().finishMedia(true, media);
+            mActivity.finish();
+        } else if (mActivity.mOptions.needCrop) {
+            CustomCameraActivity.newInstance(mActivity, mActivity.mOptions);
+            mActivity.finish();
+        } else {
+            MediaAddObservable.getInstance().addMedia(media);
+            mActivity.finish();
+        }
     }
 }

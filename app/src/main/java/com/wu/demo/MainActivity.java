@@ -89,9 +89,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_new:
                 //打开预览
-                new ImagePicker.Builder()
-                        .maxTime(10*1000)
-                        .builder().startNewCam(this);
+                new ImagePicker
+                        .Builder()
+                        .doCrop(0,0,300,300)
+                        .setJumpCameraMode(PickerConfig.CAMERA_MODE_ALL)
+                        .builder()
+                        .startCamera(this, select, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
                 break;
             case R.id.bt_qr:
                 //打开预览

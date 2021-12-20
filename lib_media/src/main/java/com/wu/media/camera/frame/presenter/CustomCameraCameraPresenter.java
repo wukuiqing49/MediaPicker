@@ -1,9 +1,18 @@
 package com.wu.media.camera.frame.presenter;
 
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.text.TextUtils;
+
+import androidx.core.app.ActivityCompat;
+
 import com.wkq.base.frame.mosby.MvpBasePresenter;
-import com.wu.media.PickerConfig;
 import com.wu.media.camera.frame.view.CustomCameraCameraView;
 import com.wu.media.ui.activity.CustomCameraActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wkq
@@ -13,16 +22,56 @@ import com.wu.media.ui.activity.CustomCameraActivity;
 
 public class CustomCameraCameraPresenter extends MvpBasePresenter<CustomCameraCameraView> {
 
+    public boolean checkPermissions(Activity activity, String[] permissions, int requestCode, boolean request) {
+        //Android6.0以下默认有权限
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return true;
 
-    public void initData(CustomCameraActivity customCameraActivity) {
-        customCameraActivity.resultCode = customCameraActivity.getIntent().getIntExtra(PickerConfig.RESULT_CODE, PickerConfig.DEFAULT_RESULT_CODE);
-        //类型
-        customCameraActivity.shootMode = customCameraActivity.getIntent().getIntExtra(PickerConfig.CAMERA_TYPE, 0);
-        //最长时间
-        if (customCameraActivity.getIntent().hasExtra(PickerConfig.MAX_TIME)){
-            customCameraActivity.maxTime = customCameraActivity.getIntent().getIntExtra(PickerConfig.MAX_TIME, 10*000) + 900;//录制时长增加900毫秒,解决部分手机只显示时间少一秒问题
-        }else {
-            customCameraActivity.maxTime = PickerConfig.RECODE_MAX_TIME + 900;//录制时长增加900毫秒,解决部分手机只显示时间少一秒问题
+        List<String> needList = new ArrayList<>();
+        boolean needShowRationale = false;
+
+        for (String permisson : permissions) {
+            if (TextUtils.isEmpty(permisson)) continue;
+            if (ActivityCompat.checkSelfPermission(activity, permisson)
+                    != PackageManager.PERMISSION_GRANTED) {
+                needList.add(permisson);
+                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permisson))
+                    needShowRationale = true;
+            }
+        }
+
+        if (needList.size() != 0) {
+            final int count = needList.size();
+            String[] needArray = needList.toArray(new String[count]);
+            if (needShowRationale) {
+                getView().showPermission(needArray, requestCode);
+            } else if (request) {
+                ActivityCompat.requestPermissions(activity, needArray, requestCode);
+            }
+            return false;
+        } else {
+            return true;
         }
     }
+
+    public boolean[] onRequestPermissionsResult(CustomCameraActivity recordActivity, int requestCode, String[] permissions, int[] grantResults) {
+
+        boolean result = true;
+        boolean isNeverAsk = false;
+
+        int length = grantResults.length;
+        for (int i = 0; i < length; i++) {
+            String permission = permissions[i];
+            int grandResult = grantResults[i];
+            if (grandResult == PackageManager.PERMISSION_DENIED) {
+                result = false;
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(recordActivity, permission))
+                    isNeverAsk = true;
+            }
+        }
+
+        return new boolean[]{result, isNeverAsk};
+    }
+
+
 }

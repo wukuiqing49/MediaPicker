@@ -30,6 +30,12 @@ public class ImageCropActivity extends MvpBindingActivity<ImageCropView, ImageCr
      *
      * @param activity   发起跳转的Activity
      * @param originPath 待裁剪图片路径
+     */
+    /**
+     * 跳转到该界面的公共方法
+     *
+     * @param activity   发起跳转的Activity
+     * @param originPath 待裁剪图片路径
      * @param options    参数
      */
     public static void start(Activity activity, String originPath, ImagePickerOptions options) {
@@ -49,9 +55,7 @@ public class ImageCropActivity extends MvpBindingActivity<ImageCropView, ImageCr
 
     @Override
     protected int getLayoutId() {
-        mOriginPath = getIntent().getStringExtra(PickerConfig.INTENT_KEY_ORIGIN_PATH);
-        mOptions = getIntent().getParcelableExtra(PickerConfig.INTENT_KEY_OPTIONS);
-        mHandler = new Handler(getMainLooper());
+
         return R.layout.activity_media_crop;
     }
 
@@ -60,6 +64,10 @@ public class ImageCropActivity extends MvpBindingActivity<ImageCropView, ImageCr
         super.onCreate(savedInstanceState);
         StatusBarUtil2.setTransparentForWindow(this);
         StatusBarUtil2.addTranslucentView(this, 0);
+        mOriginPath = getIntent().getStringExtra(PickerConfig.INTENT_KEY_ORIGIN_PATH);
+        mHandler = new Handler(getMainLooper());
+        mOptions = getIntent().getParcelableExtra(PickerConfig.INTENT_KEY_OPTIONS);
+
         if (getMvpView()!=null)getMvpView().initView();
         if (getPresenter()!=null)getPresenter().initData(this);
     }

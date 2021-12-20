@@ -29,6 +29,7 @@ import com.wu.media.R;
 import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Folder;
 import com.wu.media.media.entity.Media;
+import com.wu.media.ui.activity.CustomCameraActivity;
 import com.wu.media.ui.activity.ImageCropActivity;
 import com.wu.media.ui.activity.MediaActivity;
 import com.wu.media.ui.adapter.FolderAdapter;
@@ -479,8 +480,7 @@ public class MediaView implements MvpView {
         boolean hasPermissions = mActivity.getPresenter()
                 .checkPermissions(mActivity, mActivity.permissionsRecord, REQUEST_CODE_PERMISSION_CAMERA, mActivity.getResources().getString(R.string.dialog_imagepicker_permission_camera_nerver_ask_message), false);
         if (hasPermissions) {
-            DiyCameraActivity.start( mActivity, mActivity.mOptions.cachePath,new ArrayList<Media>(),mActivity.mOptions.maxTime,19901026,259,"");
-
+            CustomCameraActivity.newInstance(mActivity, mActivity.mOptions);
         }
     }
 

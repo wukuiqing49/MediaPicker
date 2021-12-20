@@ -1,10 +1,12 @@
 package com.wu.media.presenter;
 
+import android.os.Environment;
 import android.text.TextUtils;
 
 import com.wkq.base.frame.mosby.MvpBasePresenter;
 import com.wu.media.R;
 import com.wu.media.ui.activity.ImageCropActivity;
+import com.wu.media.utils.AndroidQUtil;
 import com.wu.media.view.ImageCropView;
 
 import java.io.File;
@@ -39,6 +41,13 @@ public class ImageCropPrsenter extends MvpBasePresenter<ImageCropView> {
             getView().showMessage(mActibity.getResources().getString(R.string.imagepicker_crop_decode_fail));
             mActibity.finish();
             return;
+        }
+        if (TextUtils.isEmpty(mActibity.mOptions.cachePath)){
+            if (AndroidQUtil.isAndroidQ()) {
+                mActibity.mOptions.cachePath = mActibity.getExternalFilesDir("").getPath() + File.separator + "MediaPickerPic";
+            } else {
+                mActibity.mOptions.cachePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "MediaPickerPic";
+            }
         }
 
         mActibity.cacheFile = new File(mActibity.mOptions.cachePath);

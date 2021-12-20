@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/check_image"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="top|right"
             android:layout_marginTop="5.5dp"
             android:layout_marginRight="5.5dp"

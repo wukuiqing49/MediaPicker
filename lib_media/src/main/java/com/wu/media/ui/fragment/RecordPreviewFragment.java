@@ -12,6 +12,7 @@ import androidx.core.content.FileProvider;
 
 import com.wkq.base.frame.fragment.MvpBindingFragment;
 import com.wkq.base.utils.DoublePressed;
+import com.wu.media.PickerConfig;
 import com.wu.media.R;
 import com.wu.media.databinding.FragmentRecordPreviewBinding;
 import com.wu.media.presenter.RecordPreviewPresenter;
@@ -37,6 +38,7 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
     public int type;
     //路径
     public String path;
+    public Boolean isCrop;
     // 处理 返回事件的监听
     public OnBackPressedCallback callback = new OnBackPressedCallback(true) {
         @Override
@@ -45,9 +47,20 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         }
     };
-    private CustomCameraActivity mActivity;
+    public CustomCameraActivity mActivity;
 
 
+    public static RecordPreviewFragment newInstance(int type, String path,Boolean isCrop) {
+
+        Bundle args = new Bundle();
+
+        RecordPreviewFragment fragment = new RecordPreviewFragment();
+        args.putInt("type", type);
+        args.putString("path", path);
+        args.putBoolean(PickerConfig.IS_CROP, isCrop);
+        fragment.setArguments(args);
+        return fragment;
+    }
     public static RecordPreviewFragment newInstance(int type, String path) {
 
         Bundle args = new Bundle();
@@ -69,6 +82,7 @@ public class RecordPreviewFragment extends MvpBindingFragment<RecordPreviewView,
         super.onCreate(savedInstanceState);
         type = (int) getArguments().get("type");
         path = (String) getArguments().get("path");
+        isCrop =  getArguments().getBoolean(PickerConfig.IS_CROP);
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
