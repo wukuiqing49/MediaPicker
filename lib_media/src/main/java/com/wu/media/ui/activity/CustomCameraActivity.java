@@ -159,6 +159,7 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
             finish();
         } else {
             if (currentFragment instanceof RecordPreviewFragment) {
+              binding.rcc.setBottomVisibility(true);
                 getSupportFragmentManager().popBackStack();
             } else {
                 finish();

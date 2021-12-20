@@ -143,6 +143,7 @@ public class CustomCameraCameraView implements MvpView {
                     mActivity.getSupportFragmentManager().popBackStack();
                     mActivity.binding.rcc.setBottomVisibility(true);
                 } else {
+                    mActivity.binding.rcc.setBottomVisibility(true);
                     mActivity.binding.fragment.setVisibility(View.GONE);
                 }
             }
