@@ -122,7 +122,7 @@ public class RecordCustomCameraView extends FrameLayout {
                 if (preview != null) preview.takePhoto(new CameraPreviewListener() {
                     @Override
                     public void onResult(String filePath) {
-                        binding.rlBottom.setVisibility(GONE);
+                        setBottomVisibility(false);
                         MediaShowObservable.MediaShowInfo info = new MediaShowObservable.MediaShowInfo();
                         info.setType(0);
                         info.setFilePath(filePath);
@@ -136,6 +136,7 @@ public class RecordCustomCameraView extends FrameLayout {
                 if (preview != null) preview.stopRecord(new CameraInterface.StopRecordCallback() {
                     @Override
                     public void recordResult(String url) {
+                        setBottomVisibility(false);
                         MediaShowObservable.MediaShowInfo info = new MediaShowObservable.MediaShowInfo();
                         info.setType(1);
                         info.setFilePath(url);
@@ -206,7 +207,15 @@ public class RecordCustomCameraView extends FrameLayout {
 
     public void onResume() {
         preview.resume();
-        binding.rlBottom.setVisibility(VISIBLE);
+        setBottomVisibility(true);
+    }
+    public void setBottomVisibility(Boolean isShow){
+        if (isShow){
+            binding.rlBottom.setVisibility(VISIBLE);
+        }else {
+            binding.rlBottom.setVisibility(GONE);
+        }
+
     }
 
 
