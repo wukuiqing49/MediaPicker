@@ -38,19 +38,12 @@
             android:onClick="@{onClick}"
             android:text="打开预览" />
         <Button
-            android:id="@+id/bt_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:onClick="@{onClick}"
-            android:text="新相机" />
-        <Button
             android:id="@+id/bt_qr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:onClick="@{onClick}"
-            android:text="二维码" />
+            android:text="华为二维码识别" />
 
         <ImageView
             android:id="@+id/iv_pre"

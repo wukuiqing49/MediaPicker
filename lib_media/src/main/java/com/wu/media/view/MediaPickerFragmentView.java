@@ -171,6 +171,11 @@ public class MediaPickerFragmentView implements MvpView {
             return false;
         }
         //文件格式
+        if (media.mediaType == 1 && FileTypeUtil.checkImageType(media.path)) {
+            showMessage(mFragment.getResources().getString(R.string.media_msg_img_limit));
+            return false;
+        }
+        //文件格式
         if (media.mediaType == 3 && FileTypeUtil.checkVideoType(media.path)) {
             showMessage(mFragment.getResources().getString(R.string.media_msg_video_limit));
             return false;

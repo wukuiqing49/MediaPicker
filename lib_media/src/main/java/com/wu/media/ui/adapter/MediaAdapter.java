@@ -147,7 +147,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
             binding.textViewSize.setText(showTime ? StringUtils.gennerTime(mMedia.duration / 1000) : FileUtils.getSizeByUnit(mMedia.size));
         }
         //单选
-        if (mOptions.singlePick || mOptions.isNeedCrop() || mOptions.maxNum == 1 || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
+        if (mOptions.singlePick || mOptions.isNeedCrop()  || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
             binding.checkImage.setVisibility(View.GONE);
         } else {
             binding.checkImage.setVisibility(View.VISIBLE);

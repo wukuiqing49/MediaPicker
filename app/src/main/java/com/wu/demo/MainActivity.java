@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .Builder()
                         .setJumpCameraMode(3)
                         .cachePath(fileDir)// 1 图片 3 视频
+                        .doCrop(0,0,300,300)
                         .builder()
                         .startCamera(this, select, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
                 break;
@@ -87,19 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .builder()
                         .startPreview(this, 0, select, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
                 break;
-            case R.id.bt_new:
-                //打开预览
-                new ImagePicker
-                        .Builder()
-                        .doCrop(0,0,300,300)
-                        .setJumpCameraMode(PickerConfig.CAMERA_MODE_ALL)
-                        .builder()
-                        .startCamera(this, select, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
-                break;
             case R.id.bt_qr:
                 //打开预览
                 ScanUtil.startScan(this, 10010, new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE).create());
-
                 break;
         }
     }

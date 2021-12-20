@@ -625,4 +625,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+    public void pause() {
+        if (mCamera!=null){
+            Camera.Parameters params = mCamera.getParameters();
+        }
+    }
 }

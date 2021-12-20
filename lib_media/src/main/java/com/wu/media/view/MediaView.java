@@ -334,6 +334,11 @@ public class MediaView implements MvpView {
             showMessage(mActivity.getResources().getString(R.string.media_msg_video_limit));
             return false;
         }
+        //文件格式
+        if (media.mediaType == 1 && FileTypeUtil.checkImageType(media.path)) {
+            showMessage(mActivity.getResources().getString(R.string.media_msg_img_limit));
+            return false;
+        }
         //视频时长限制
         if (media.mediaType == 3 && media.duration > mActivity.maxVideoTime) {
             showMessage(mActivity.getResources().getString(R.string.media_msg_time_limit) + (MediaStringUtils.gennerMinSec(mActivity.maxVideoTime / 1000)));

@@ -2,14 +2,11 @@ package com.wu.media.ui.activity;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,7 +25,6 @@ import com.wu.media.utils.observable.MediaShowObservable;
 import com.wu.media.utils.observable.MeidaResultObservable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -74,7 +70,6 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
         super.onCreate(savedInstanceState);
 
 
-
         if (savedInstanceState != null) {
             mOptions = savedInstanceState.getParcelable(PickerConfig.INTENT_KEY_OPTIONS);
             resultCode = savedInstanceState.getInt(PickerConfig.RESULT_CODE, resultCode);
@@ -111,13 +106,14 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
             //永久拒绝后，返回页面时检测权限并初始化
             getMvpView().checkPermisssion();
         }
-        binding.rcc.preview.resume();
+        binding.rcc.onResume();
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+        binding.rcc.setFlashState(false);
     }
 
     @Override

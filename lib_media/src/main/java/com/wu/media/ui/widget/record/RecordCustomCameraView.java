@@ -122,6 +122,7 @@ public class RecordCustomCameraView extends FrameLayout {
                 if (preview != null) preview.takePhoto(new CameraPreviewListener() {
                     @Override
                     public void onResult(String filePath) {
+                        binding.rlBottom.setVisibility(GONE);
                         MediaShowObservable.MediaShowInfo info = new MediaShowObservable.MediaShowInfo();
                         info.setType(0);
                         info.setFilePath(filePath);
@@ -201,6 +202,11 @@ public class RecordCustomCameraView extends FrameLayout {
             }
         });
         if (preview != null) preview.registerSensorManager(mContext);
+    }
+
+    public void onResume() {
+        preview.resume();
+        binding.rlBottom.setVisibility(VISIBLE);
     }
 
 

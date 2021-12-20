@@ -137,6 +137,17 @@ public class FileTypeUtil {
         return type == null ? "" : type;
     }
 
+    public static boolean checkImageType(String path) {
+        if (TextUtils.isEmpty(path)) return false;
+        int end = path.lastIndexOf(".");
+        if (end <= 0) return false;
+
+        String type = path.substring(end);
+        if (TextUtils.isEmpty(type)) return false;
+        return no_support_types.contains(type);
+    }
+
+
     /**
      * 根据制定文件的文件头判断其文件类型
      *
@@ -223,7 +234,7 @@ public class FileTypeUtil {
 
     private static final String video_types = ".avi.asf.asx.flv.lsf.lsx.mov.mp3.mp4.mpeg.mpg4";
     private static final String gif_types = ".gif";
-    private static final String no_support_types = ".bmp";
+    private static final String no_support_types = ".bmp.tiff";
 
     public static boolean checkVideoType(String path) {
         if (TextUtils.isEmpty(path)) return false;

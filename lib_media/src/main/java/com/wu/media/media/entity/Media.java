@@ -38,6 +38,8 @@ public class Media  implements Parcelable {
     public int imgHeight;
 
     public boolean isLongImg;
+    //损坏图片
+    public boolean isFail;
 
     public int getImgWidth() {
         return imgWidth;
@@ -61,6 +63,10 @@ public class Media  implements Parcelable {
 
     public void setLongImg(boolean longImg) {
         isLongImg = longImg;
+    }
+
+    public void setFail(boolean fail) {
+        isFail = fail;
     }
 
     public Media() {

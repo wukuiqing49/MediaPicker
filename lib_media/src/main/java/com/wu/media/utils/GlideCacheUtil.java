@@ -328,16 +328,16 @@ public class GlideCacheUtil {
             }
             if (AndroidQUtil.isAndroidQ()) {
                 view.setTag(mediaUri.toString());
-                showAndroidQ(context, media.mediaType, mediaUri, view, loading, option);
+                showAndroidQ(context, media, mediaUri, view, loading, option);
             } else {
                 if (media.mediaType == 1) {
-                    showNoAndroidQ(context, media.mediaType, media.fileUri, view, loading, option);
+                    showNoAndroidQ(context, media, media.fileUri, view, loading, option);
                 } else if (media.mediaType == 3) {
                     if (ThumbnailsUtils.thumbnails.containsKey(media.id + "")) {
-                        showVideoNoAndroidQ(context, media.mediaType, ThumbnailsUtils.thumbnails.get(media.id + ""), view, loading, option);
+                        showVideoNoAndroidQ(context, media, ThumbnailsUtils.thumbnails.get(media.id + ""), view, loading, option);
                     } else {
                         view.setTag(media.id);
-                        showVideoThumbnail(context, media.mediaType, media.id, media.path, view, loading, option);
+                        showVideoThumbnail(context, media, media.id, media.path, view, loading, option);
                     }
                 }
             }
@@ -348,13 +348,14 @@ public class GlideCacheUtil {
         }
     }
 
-    private static void showAndroidQUri(Context context, Uri path, ImageView view, ProgressBar loading, RequestOptions option) {
+    private static void showAndroidQUri(Context context, Media media, Uri path, ImageView view, ProgressBar loading, RequestOptions option) {
         RequestBuilder rb = Glide.with(context).load(path);
         rb.listener(new RequestListener() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
                 view.setScaleType(ImageView.ScaleType.CENTER);
                 if (loading != null) loading.setVisibility(View.GONE);
+                media.setFail(true);
                 return false;
             }
 
@@ -367,15 +368,16 @@ public class GlideCacheUtil {
 
         rb.apply(option).into(view);
     }
-    private static void showAndroidQ(Context context, int mediaType, Uri mediaUri, ImageView view, ProgressBar loading, RequestOptions option) {
+
+    private static void showAndroidQ(Context context, Media media, Uri mediaUri, ImageView view, ProgressBar loading, RequestOptions option) {
 
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
-
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void subscribe(ObservableEmitter<Bitmap> emitter) throws Exception {
                 ContentResolver contentResolver = context.getContentResolver();
                 Bitmap bm = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                     bm = contentResolver.loadThumbnail(mediaUri, new Size(100, 100), null);
                 }
                 if (bm != null) {
@@ -392,14 +394,14 @@ public class GlideCacheUtil {
             @Override
             public void onNext(Bitmap bean) {
                 if (view.getTag() != null && mediaUri.toString().equals(view.getTag())) {
-                    showThumbnail(context, bean, view, loading, option);
+                    showThumbnail(context, media, bean, view, loading, option);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (view.getTag() != null && mediaUri.toString().equals(view.getTag())) {
-                    showAndroidQUri(context, mediaUri, view, loading, option);
+                    showAndroidQUri(context, media, mediaUri, view, loading, option);
                 }
                 if (loading != null) loading.setVisibility(View.GONE);
             }
@@ -411,13 +413,14 @@ public class GlideCacheUtil {
         });
     }
 
-    private static void showVideoNoAndroidQ(Context context, int mediaType, String path, ImageView view, ProgressBar loading, RequestOptions option) {
+    private static void showVideoNoAndroidQ(Context context, Media media, String path, ImageView view, ProgressBar loading, RequestOptions option) {
         RequestBuilder rb = Glide.with(context).load(path);
         rb.listener(new RequestListener() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
                 view.setScaleType(ImageView.ScaleType.CENTER);
                 if (loading != null) loading.setVisibility(View.GONE);
+                media.setFail(true);
                 return false;
             }
 
@@ -431,13 +434,14 @@ public class GlideCacheUtil {
         rb.thumbnail(0.05f).apply(option).into(view);
     }
 
-    private static void showNoAndroidQ(Context context, int mediaType, String path, ImageView view, ProgressBar loading, RequestOptions option) {
+    private static void showNoAndroidQ(Context context, Media media, String path, ImageView view, ProgressBar loading, RequestOptions option) {
         RequestBuilder rb = Glide.with(context).load(path);
         rb.listener(new RequestListener() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
                 view.setScaleType(ImageView.ScaleType.CENTER);
                 if (loading != null) loading.setVisibility(View.GONE);
+                media.setFail(true);
                 return false;
             }
 
@@ -452,7 +456,7 @@ public class GlideCacheUtil {
     }
 
 
-    private static void showVideoThumbnail(Context context, int mediaType, long id, String path, ImageView view, ProgressBar loading, RequestOptions option) {
+    private static void showVideoThumbnail(Context context, Media media, long id, String path, ImageView view, ProgressBar loading, RequestOptions option) {
 //        // 步骤1：创建被观察者 =  Flowable
         Flowable.create(new FlowableOnSubscribe<Bitmap>() {
             @Override
@@ -473,12 +477,12 @@ public class GlideCacheUtil {
                     @Override
                     public void onNext(Bitmap thumbnails) {
                         if (view.getTag() != null && view.getTag().toString().equals(id + ""))
-                            showThumbnail(context, thumbnails, view, loading, option);
+                            showThumbnail(context, media, thumbnails, view, loading, option);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        showNoAndroidQ(context, mediaType, path, view, loading, option);
+                        showNoAndroidQ(context, media, path, view, loading, option);
                         if (loading != null) loading.setVisibility(View.GONE);
                     }
 
@@ -489,13 +493,14 @@ public class GlideCacheUtil {
     }
 
 
-    private static void showThumbnail(Context context, Bitmap bm, ImageView view, ProgressBar loading, RequestOptions option) {
+    private static void showThumbnail(Context context, Media media, Bitmap bm, ImageView view, ProgressBar loading, RequestOptions option) {
         RequestBuilder rb = Glide.with(context).load(bm);
         rb.listener(new RequestListener() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
                 view.setScaleType(ImageView.ScaleType.CENTER);
                 if (loading != null) loading.setVisibility(View.GONE);
+                media.setFail(true);
                 return false;
             }
 

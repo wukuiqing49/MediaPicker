@@ -40,7 +40,7 @@
     <string name="media_msg_time_limit">请压缩和剪切后上传，时长最大只支持</string>
 
     <string name="media_msg_video_limit">不支持这种格式的视频</string>
-
+    <string name="media_msg_img_limit">不支持这种格式的图片</string>
     <string name="msg_gif_limit">请选择其他图片,Gif格式不被支持</string>
     <string name="select_null">请选择文件</string>
     <string name="done">完成</string>
