@@ -318,7 +318,7 @@ public class GlideCacheUtil {
             if (FileTypeUtil.isGif(media.path)) {
             } else {
                 option = option
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .dontAnimate();
             }
             if (media.mediaType == 1) {
