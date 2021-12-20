@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
 }
+static def stringValue(def value) {
+    return "\"${value}\""
+}
 
 android {
     compileSdkVersion 30
@@ -10,16 +13,51 @@ android {
         applicationId "com.wu.demo"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.3"
 
         multiDexEnabled true
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file("../media.keystore")
+            storePassword 'wukuiqing'
+            keyAlias 'shop'
+            keyPassword 'wukuiqing'
+        }
+
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //SHA1: 4A2FD3626FFED787BB9D9C11FF0443914F0CD3F0
+            //      409E5F60CD8EB4F00F5C5BE63A70A29E
+            storeFile file("../media.keystore")
+            storePassword 'wukuiqing'
+            keyAlias 'shop'
+            keyPassword 'wukuiqing'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            zipAlignEnabled true
+            debuggable = true
+            buildConfigField "String", "APP_WECHAT_KEY", stringValue("wx61ac9619cdafdbd8")
+
+        }
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable = false
+            buildConfigField "String", "APP_WECHAT_KEY", stringValue("wx61ac9619cdafdbd8")
+        }
+    }
+
+
+    //输出包
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Media-${variant.versionName}-${variant.name}.apk"
         }
     }
     compileOptions {
@@ -31,10 +69,6 @@ android {
         dataBinding = true
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
