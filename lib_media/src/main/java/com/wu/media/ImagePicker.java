@@ -120,7 +120,7 @@ public class ImagePicker {
             mOptions = new ImagePickerOptions();
         }
 
-
+        //选择模式
         public Builder selectMode(int selectMode) {
             mOptions.setSelectMode(selectMode);
             return this;
@@ -130,12 +130,12 @@ public class ImagePicker {
             mOptions.setReturnUri(isReturnUri);
             return this;
         }
-
+        //视频最大大小
         public Builder maxVideoSize(int maxSize) {
             mOptions.setMaxVideoSize(maxSize);
             return this;
         }
-
+        //图片最大大小
         public Builder maxImageSize(int maxImageSize) {
             mOptions.setMaxImageSize(maxImageSize);
             return this;
@@ -145,41 +145,42 @@ public class ImagePicker {
             mOptions.setShowTime(showTime);
             return this;
         }
-
+        //选中gif
         public Builder setSelectGif(boolean selectGif) {
             mOptions.setSelectGif(selectGif);
             return this;
         }
-
+        //是否跳转相机以及相机模式
         public Builder setJumpCameraMode(int cameraMode) {
             mOptions.setJumpCameraMode(cameraMode);
             return this;
         }
+        //结果码
         public Builder setResultCode(int resultCode) {
             mOptions.setResultCode(resultCode);
             return this;
         }
-
+        //最大时常
         public Builder maxTime(int maxTime) {
             mOptions.setMaxTime(maxTime);
             return this;
         }
-
+        //最大选择个数
         public Builder maxNum(int maxNum) {
             mOptions.setMaxNum(maxNum);
             return this;
         }
-
+        //是否需要相机
         public Builder needCamera(boolean needCamera) {
             mOptions.setNeedCamera(needCamera);
             return this;
         }
-
+        //预览专用 默认展示的list
         public Builder defaultSelectList(ArrayList<Media> select) {
             mOptions.setSelects(select);
             return this;
         }
-
+        //缓存路径
         public Builder cachePath(String cachePath) {
             mOptions.setCachePath(cachePath);
             return this;
@@ -190,23 +191,19 @@ public class ImagePicker {
 //            return this;
 //        }
 
-        public Builder isFriendCircle(boolean isFriendCircle) {
-            mOptions.setFriendCircle(isFriendCircle);
-            return this;
-        }
-
+        //裁剪属性
         public Builder doCrop(ImagePickerCropParams cropParams) {
             mOptions.setNeedCrop(cropParams != null);
             mOptions.setCropParams(cropParams);
             return this;
         }
-
+        //裁剪格式 默认(0,0,400,400)
         public Builder doCrop(int aspectX, int aspectY, int outputX, int outputY) {
             mOptions.setNeedCrop(true);
             mOptions.setCropParams(new ImagePickerCropParams(aspectX, aspectY, outputX, outputY));
             return this;
         }
-
+        //是否单选
         public Builder isSinglePick(boolean isSinglePick) {
             mOptions.setSinglePick(isSinglePick);
             return this;

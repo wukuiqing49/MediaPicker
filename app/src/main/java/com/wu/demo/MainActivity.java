@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_media:
                 //打开相册
                 new ImagePicker.Builder()
-                        .maxNum(1)
+                        .maxNum(9)
                         .setSelectGif(true)
                         .maxImageSize(25 * 1024 * 1024)
                         .maxVideoSize(100 * 1024 * 1024)
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .selectMode(PickerConfig.PICKER_IMAGE_VIDEO)
                         .defaultSelectList(new ArrayList<Media>())
                         .needCamera(true)
-                        .doCrop(1, 1, 400, 400)
                         .builder()
                         .start(this, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
                 break;
