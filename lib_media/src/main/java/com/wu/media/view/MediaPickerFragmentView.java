@@ -63,19 +63,22 @@ public class MediaPickerFragmentView implements MvpView {
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         mFragment.binding.rv.setHasFixedSize(true);
         // 处理 选中闪烁问题
-//        ((SimpleItemAnimator)   mFragment.binding.rv.getItemAnimator()).setSupportsChangeAnimations(false);
-        mFragment.binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
-                    Glide.with(recyclerView).resumeRequests();
-                } else {
-                    Glide.with(recyclerView).pauseRequests();
-                }
-            }
-        });
+
+
+        ((SimpleItemAnimator)   mFragment.binding.rv.getItemAnimator()).setSupportsChangeAnimations(false);
+        mFragment.binding.rv.setItemAnimator(null);
+//        mFragment.binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+//                    Glide.with(recyclerView).resumeRequests();
+//                } else {
+//                    Glide.with(recyclerView).pauseRequests();
+//                }
+//            }
+//        });
         mFragment.mMediaAdapter = new MediaAdapter(mFragment.getActivity(), mActivity.showTime, mActivity.mOptions);
         mFragment.binding.rv.setAdapter(mFragment.mMediaAdapter);
 
@@ -141,9 +144,9 @@ public class MediaPickerFragmentView implements MvpView {
         if (isCheckMediaSupport(mActivity, media)) {
             MediaSelectStateObservable.getInstance().selectStateUpdateMedia(media);
             media.setSelect(!isSelect);
-            mFragment.mMediaAdapter.notifyItemChanged(position);
+//            mFragment.mMediaAdapter.notifyItemChanged(position);
 //            //处理 选中闪烁问题
-//            mFragment.mMediaAdapter.notifyItemRangeChanged(position,  mFragment.mMediaAdapter.getList().size());
+            mFragment.mMediaAdapter.notifyItemChanged(position,  position);
         }
     }
 

@@ -21,7 +21,7 @@
         android:paddingRight="16dp"
         android:text="@string/preview"
         android:textColor="@color/default_text_color"
-        android:textSize="15sp"
+        android:textSize="15dp"
         android:visibility="visible" />
 
     <Button
@@ -40,5 +40,5 @@
         android:paddingRight="14dp"
         android:text="@string/all_dir_name"
         android:textColor="@color/default_text_color"
-        android:textSize="15sp" />
+        android:textSize="15dp" />
 </RelativeLayout>

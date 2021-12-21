@@ -30,7 +30,7 @@
         android:layout_toRightOf="@id/btn_back"
         android:text="@string/select_title"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <LinearLayout
         android:id="@+id/check_layout_top"
@@ -56,14 +56,14 @@
             android:layout_marginRight="10dp"
             android:text="@string/select"
             android:textColor="@color/default_text_color"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <Button
         android:visibility="gone"
         android:id="@+id/done"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="34dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="9dp"
@@ -76,5 +76,5 @@
         android:paddingTop="5dp"
         android:text="@string/done"
         android:textColor="@color/default_text_color"
-        android:textSize="14sp" />
+        android:textSize="14dp" />
 </RelativeLayout>

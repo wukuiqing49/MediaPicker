@@ -11,13 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <View
-            android:id="@+id/mask_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#88000000"
-            android:visibility="gone" />
-
         <ImageView
             android:id="@+id/check_image"
             android:layout_width="20dp"
@@ -52,7 +45,7 @@
                 android:layout_marginBottom="3dp"
                 android:text="@string/video"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/textView_size"
@@ -64,7 +57,7 @@
                 android:layout_marginBottom="3dp"
                 android:text=""
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </RelativeLayout>
     </FrameLayout>
 </layout>

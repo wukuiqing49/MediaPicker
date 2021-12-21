@@ -32,6 +32,7 @@ import com.wu.media.utils.GlideCacheUtil;
 import com.wu.media.utils.ScreenUtils;
 
 import java.io.File;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -100,6 +101,29 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
     }
 
     @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+
+        if (payloads!=null&&payloads.size()>0){
+            Log.e("","");
+            MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
+          int temType=  getItemViewType(position);
+          if (temType==MediaAdapter.TYPE_NORMAL){
+              Media mMedia = getItem(position);
+              binding = (MediaImageItemBinding) mediaViewHolder.getBinding();
+              //单选
+              if (mOptions.singlePick || mOptions.isNeedCrop()  || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
+                  binding.checkImage.setVisibility(View.GONE);
+              } else {
+                  binding.checkImage.setVisibility(View.VISIBLE);
+                  binding.checkImage.setImageDrawable(mMedia.isSelect() ? ContextCompat.getDrawable(mContext, R.drawable.iv_media_checked) : ContextCompat.getDrawable(mContext, R.drawable.xc_weixuan));
+              }
+          }
+        }else {
+            super.onBindViewHolder(holder, position, payloads);
+        }
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
         switch (getItemViewType(position)) {
@@ -111,6 +135,11 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
                 showMedia(mediaViewHolder, position);
                 break;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return (long)position;
     }
 
     @Override

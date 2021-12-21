@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/rl_bottom"
             android:layout_centerHorizontal="true"
+            android:textSize="14dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/imagepicker_text_white" />
 

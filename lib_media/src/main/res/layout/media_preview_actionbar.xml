@@ -30,7 +30,7 @@
         android:layout_toRightOf="@id/btn_back"
         android:text="1/1"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <LinearLayout
         android:id="@+id/check_layout"
@@ -56,7 +56,7 @@
             android:layout_marginRight="10dp"
             android:text="@string/select"
             android:textColor="@color/default_text_color"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <Button
@@ -75,5 +75,5 @@
         android:paddingTop="5dp"
         android:text="@string/done"
         android:textColor="@color/default_text_color"
-        android:textSize="14sp" />
+        android:textSize="14dp" />
 </RelativeLayout>

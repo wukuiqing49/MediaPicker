@@ -16,7 +16,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
         android:textColor="@color/color_282828"
-        android:textSize="17sp"
+        android:textSize="17dp"
         tools:text="content" />
 
     <View
@@ -37,7 +37,7 @@
         android:paddingBottom="14dp"
         android:paddingTop="14dp"
         android:textColor="@color/color_dialog_btn"
-        android:textSize="17sp"
+        android:textSize="17dp"
         tools:text="好的" />
 
     <View
@@ -59,7 +59,7 @@
         android:paddingBottom="14dp"
         android:paddingTop="14dp"
         android:textColor="@color/color_dialog_btn"
-        android:textSize="17sp"
+        android:textSize="17dp"
         tools:text="好的" />
 
 </RelativeLayout>

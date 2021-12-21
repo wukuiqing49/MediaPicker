@@ -40,7 +40,7 @@
                 android:onClick="@{onClick}"
                 android:text="@string/imagepicker_crop_cancel"
                 android:textColor="@color/imagepicker_text_white"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
 
             <Button
@@ -54,7 +54,7 @@
                 android:onClick="@{onClick}"
                 android:text="@string/imagepicker_crop_ok"
                 android:textColor="@color/imagepicker_text_white"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         </RelativeLayout>
 

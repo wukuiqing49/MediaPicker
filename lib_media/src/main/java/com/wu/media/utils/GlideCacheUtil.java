@@ -315,17 +315,11 @@ public class GlideCacheUtil {
         try {
             Uri mediaUri = Uri.parse(media.fileUri);
             view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            if (FileTypeUtil.isGif(media.path)) {
-            } else {
                 option = option
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .dontAnimate();
-            }
-            if (media.mediaType == 1) {
-                option = option.error(R.drawable.iv_imgload_full_err).placeholder(R.drawable.iv_new_media_zw);
-            } else {
-                option = option.error(R.drawable.iv_imgload_full_err).placeholder(R.drawable.iv_new_media_zw);
-            }
+            option = option.error(R.drawable.iv_imgload_full_err).placeholder(R.drawable.iv_new_media_zw);
+
             if (AndroidQUtil.isAndroidQ()) {
                 view.setTag(mediaUri.toString());
                 showAndroidQ(context, media, mediaUri, view, loading, option);

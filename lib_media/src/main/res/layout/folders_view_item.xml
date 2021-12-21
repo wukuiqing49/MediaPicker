@@ -33,7 +33,7 @@
             tools:text="img"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -42,7 +42,7 @@
             android:visibility="gone"
             android:id="@+id/path"
             tools:text="/sdcard/a/"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="#AFAFAF"
             android:singleLine="true"
             android:ellipsize="middle"
@@ -55,7 +55,7 @@
             android:id="@+id/size"
             tools:text="1张"
             android:layout_marginTop="5dp"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="#AFAFAF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
