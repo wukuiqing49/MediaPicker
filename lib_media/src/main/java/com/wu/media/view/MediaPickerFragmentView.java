@@ -146,7 +146,7 @@ public class MediaPickerFragmentView implements MvpView {
             media.setSelect(!isSelect);
 //            mFragment.mMediaAdapter.notifyItemChanged(position);
 //            //处理 选中闪烁问题
-            mFragment.mMediaAdapter.notifyItemChanged(position,  position);
+            mFragment.mMediaAdapter.notifyItemChanged(position,  "1");
         }
     }
 

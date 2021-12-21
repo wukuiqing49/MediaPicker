@@ -103,22 +103,22 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
 
-        if (payloads!=null&&payloads.size()>0){
-            Log.e("","");
+        if (payloads != null && payloads.size() > 0 && "1".equals(payloads.get(0))) {
+            Log.e("", "");
             MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
-          int temType=  getItemViewType(position);
-          if (temType==MediaAdapter.TYPE_NORMAL){
-              Media mMedia = getItem(position);
-              binding = (MediaImageItemBinding) mediaViewHolder.getBinding();
-              //单选
-              if (mOptions.singlePick || mOptions.isNeedCrop()  || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
-                  binding.checkImage.setVisibility(View.GONE);
-              } else {
-                  binding.checkImage.setVisibility(View.VISIBLE);
-                  binding.checkImage.setImageDrawable(mMedia.isSelect() ? ContextCompat.getDrawable(mContext, R.drawable.iv_media_checked) : ContextCompat.getDrawable(mContext, R.drawable.xc_weixuan));
-              }
-          }
-        }else {
+            int temType = getItemViewType(position);
+            if (temType == MediaAdapter.TYPE_NORMAL) {
+                Media mMedia = getItem(position);
+                binding = (MediaImageItemBinding) mediaViewHolder.getBinding();
+                //单选
+                if (mOptions.singlePick || mOptions.isNeedCrop() || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
+                    binding.checkImage.setVisibility(View.GONE);
+                } else {
+                    binding.checkImage.setVisibility(View.VISIBLE);
+                    binding.checkImage.setImageDrawable(mMedia.isSelect() ? ContextCompat.getDrawable(mContext, R.drawable.iv_media_checked) : ContextCompat.getDrawable(mContext, R.drawable.xc_weixuan));
+                }
+            }
+        } else {
             super.onBindViewHolder(holder, position, payloads);
         }
     }
@@ -139,7 +139,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
 
     @Override
     public long getItemId(int position) {
-        return (long)position;
+        return (long) position;
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
             binding.textViewSize.setText(showTime ? StringUtils.gennerTime(mMedia.duration / 1000) : FileUtils.getSizeByUnit(mMedia.size));
         }
         //单选
-        if (mOptions.singlePick || mOptions.isNeedCrop()  || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
+        if (mOptions.singlePick || mOptions.isNeedCrop() || (mOptions.getSelectMode() == PickerConfig.PICKER_ONLY_ONE_TYPE && mMedia.mediaType == 3)) {
             binding.checkImage.setVisibility(View.GONE);
         } else {
             binding.checkImage.setVisibility(View.VISIBLE);
@@ -201,7 +201,7 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
 
                 HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(),  Uri.parse(mMedia.fileUri));
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(mMedia.fileUri));
                 HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
                 if (hmsScans.length > 0) {
                     emitter.onNext(true);
