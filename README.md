@@ -27,7 +27,10 @@
  
 #### 引用
 
-  implementation project(path: ':lib_media')// 本地引用
+  //网络引用
+  implementation 'com.github.wukuiqing49:MediaPicker:v1.0.1'
+  // 本地引用
+  implementation project(path: ':lib_media')
 
 #### 效果
 <p>
