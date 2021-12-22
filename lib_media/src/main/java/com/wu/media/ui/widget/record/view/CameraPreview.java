@@ -406,7 +406,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
      */
     public void takePhoto(CameraPreviewListener listener) {
         if (mCamera == null) return;
-        mCamera.takePicture(null, null, null, new Camera.PictureCallback() {
+        mCamera.takePicture(null, null,  new Camera.PictureCallback() {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 String filePath = AlbumProcessUtil.savePhoto(context, data);
