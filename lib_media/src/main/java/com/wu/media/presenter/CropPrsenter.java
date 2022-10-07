@@ -63,5 +63,8 @@ public class CropPrsenter extends MvpBasePresenter<CropView> {
 //                .setAspect(mActibity.mCropParams.getAspectX(), mActibity.mCropParams.getAspectY())
 //                .setOutputSize(mActibity.mCropParams.getOutputX(), mActibity.mCropParams.getOutputY())
 //                .start(mActibity);
+
+
+
     }
 }
