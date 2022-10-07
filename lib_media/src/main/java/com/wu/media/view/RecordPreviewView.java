@@ -17,10 +17,8 @@ import com.wkq.base.frame.mosby.delegate.MvpView;
 import com.wkq.base.utils.AlertUtil;
 import com.wu.media.PickerConfig;
 import com.wu.media.media.entity.Media;
-import com.wu.media.ui.activity.CropActivity;
+import com.wu.media.ui.activity.CropPicActivity;
 import com.wu.media.ui.activity.CustomCameraActivity;
-import com.wu.media.ui.activity.ImageCropActivity;
-import com.wu.media.ui.activity.RecordActivity;
 import com.wu.media.ui.fragment.RecordPreviewFragment;
 import com.wu.media.utils.GlideCacheUtil;
 import com.wu.media.utils.MediaUtils;
@@ -106,7 +104,7 @@ public class RecordPreviewView implements MvpView {
                     }
                     if (mFragment.mActivity.mOptions.needCrop) {
 //                        ImageCropActivity.start(mFragment.mActivity, path, mFragment.mActivity.mOptions);
-                        CropActivity.start(mFragment.mActivity, path, mFragment.mActivity.mOptions);
+                        CropPicActivity.start(mFragment.mActivity, path, mFragment.mActivity.mOptions);
                     } else if (mFragment.mActivity.mOptions.isSinglePick() || mFragment.mActivity.mOptions.getMaxImageSize() == 1) {
                         MeidaResultObservable.getInstance().finishMedia(true, media);
                         mFragment.mActivity.finish();

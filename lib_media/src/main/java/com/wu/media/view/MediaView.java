@@ -26,12 +26,10 @@ import com.wkq.base.utils.AlertUtil;
 import com.wkq.base.utils.StatusBarUtil2;
 import com.wu.media.PickerConfig;
 import com.wu.media.R;
-import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Folder;
 import com.wu.media.media.entity.Media;
-import com.wu.media.ui.activity.CropActivity;
+import com.wu.media.ui.activity.CropPicActivity;
 import com.wu.media.ui.activity.CustomCameraActivity;
-import com.wu.media.ui.activity.ImageCropActivity;
 import com.wu.media.ui.activity.MediaActivity;
 import com.wu.media.ui.adapter.FolderAdapter;
 import com.wu.media.ui.adapter.PreviewBottomMediaAdapter;
@@ -507,11 +505,11 @@ public class MediaView implements MvpView {
                         e.printStackTrace();
                     }
                 }
-                CropActivity.start(mActivity, filePath, mActivity.mOptions);
+                CropPicActivity.start(mActivity, filePath, mActivity.mOptions);
 //                ImageCropActivity.start(mActivity, filePath, mActivity.mOptions);
             } else {
 //                ImageCropActivity.start(mActivity, media.path, mActivity.mOptions);
-                CropActivity.start(mActivity, media.path, mActivity.mOptions);
+                CropPicActivity.start(mActivity, media.path, mActivity.mOptions);
             }
 
 

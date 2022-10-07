@@ -5,11 +5,9 @@ import android.text.TextUtils;
 
 import com.wkq.base.frame.mosby.MvpBasePresenter;
 import com.wu.media.R;
-import com.wu.media.ui.activity.CropActivity;
-import com.wu.media.ui.activity.ImageCropActivity;
+import com.wu.media.ui.activity.CropPicActivity;
 import com.wu.media.utils.AndroidQUtil;
-import com.wu.media.view.CropView;
-import com.wu.media.view.ImageCropView;
+import com.wu.media.view.CropPicView;
 
 import java.io.File;
 
@@ -22,9 +20,9 @@ import java.io.File;
  * <p>
  * 简 介 :
  */
-public class CropPrsenter extends MvpBasePresenter<CropView> {
+public class CropPrsenter extends MvpBasePresenter<CropPicView> {
 
-    public void initData(CropActivity mActibity) {
+    public void initData(CropPicActivity mActibity) {
         if (mActibity.mOptions == null) {
             getView().showMessage(mActibity.getResources().getString(R.string.error_imagepicker_lack_params));
             mActibity.setResult(mActibity.RESULT_CANCELED);

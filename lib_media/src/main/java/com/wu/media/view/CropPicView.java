@@ -13,8 +13,7 @@ import com.wkq.base.utils.AlertUtil;
 import com.wkq.base.utils.FileUtils;
 import com.wu.media.R;
 import com.wu.media.media.entity.Media;
-import com.wu.media.ui.activity.CropActivity;
-import com.wu.media.ui.activity.ImageCropActivity;
+import com.wu.media.ui.activity.CropPicActivity;
 import com.wu.media.utils.AndroidQUtil;
 import com.wu.media.utils.observable.MeidaResultObservable;
 
@@ -38,11 +37,11 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * 简 介 :
  */
-public class CropView implements MvpView {
-    CropActivity mActivity;
+public class CropPicView implements MvpView {
+    CropPicActivity mActivity;
     private ProgressDialog mDialog;
 
-    public CropView(CropActivity mActivity) {
+    public CropPicView(CropPicActivity mActivity) {
         this.mActivity = mActivity;
     }
 

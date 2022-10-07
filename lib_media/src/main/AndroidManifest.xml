@@ -43,7 +43,7 @@
             android:theme="@style/FullActivityThemeStyle"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.wu.media.ui.activity.CropActivity"
+            android:name="com.wu.media.ui.activity.CropPicActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

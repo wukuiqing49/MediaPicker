@@ -11,11 +11,11 @@ import com.wkq.base.frame.activity.MvpBindingActivity;
 import com.wkq.base.utils.StatusBarUtil2;
 import com.wu.media.PickerConfig;
 import com.wu.media.R;
-import com.wu.media.databinding.ActivityCropBinding;
+import com.wu.media.databinding.ActivityPicCropBinding;
 import com.wu.media.model.ImagePickerCropParams;
 import com.wu.media.model.ImagePickerOptions;
 import com.wu.media.presenter.CropPrsenter;
-import com.wu.media.view.CropView;
+import com.wu.media.view.CropPicView;
 
 import java.io.File;
 
@@ -23,7 +23,7 @@ import java.io.File;
 /**
  * 裁剪界面
  */
-public class CropActivity extends MvpBindingActivity<CropView, CropPrsenter, ActivityCropBinding> implements View.OnClickListener {
+public class CropPicActivity extends MvpBindingActivity<CropPicView, CropPrsenter, ActivityPicCropBinding> implements View.OnClickListener {
     /**
      * 跳转到该界面的公共方法
      *
@@ -38,7 +38,7 @@ public class CropActivity extends MvpBindingActivity<CropView, CropPrsenter, Act
      * @param options    参数
      */
     public static void start(Activity activity, String originPath, ImagePickerOptions options) {
-        Intent intent = new Intent(activity, CropActivity.class);
+        Intent intent = new Intent(activity, CropPicActivity.class);
         intent.putExtra(PickerConfig.INTENT_KEY_ORIGIN_PATH, originPath);
         intent.putExtra(PickerConfig.INTENT_KEY_OPTIONS, options);
         activity.startActivityForResult(intent, PickerConfig.REQUEST_CODE_CROP);
@@ -55,7 +55,7 @@ public class CropActivity extends MvpBindingActivity<CropView, CropPrsenter, Act
     @Override
     protected int getLayoutId() {
 
-        return R.layout.activity_crop;
+        return R.layout.activity_pic_crop;
     }
 
     @Override
