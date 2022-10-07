@@ -181,6 +181,8 @@ public class CustomCameraActivity extends MvpBindingActivity<CustomCameraCameraV
                 intent.putParcelableArrayListExtra(PickerConfig.EXTRA_RESULT, selectMedia);
                 setResult(resultCode, intent);
                 finish();
+            }else {
+                finish();
             }
         } else if (o instanceof MediaShowObservable && arg != null) {
             MediaShowObservable.MediaShowInfo info = (MediaShowObservable.MediaShowInfo) arg;

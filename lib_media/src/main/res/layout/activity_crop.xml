@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onClick"
+            type="OnClickListener" />
+    </data>
+
+    <com.wu.media.ui.widget.CameraLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentView="@+id/crop_view_container"
+        app:leftDownView="@+id/cancel_button"
+        app:centerView="@+id/rotate_button"
+        app:rightUpView="@+id/confirm_button">
+
+        <com.wu.media.ui.widget.CropFrameLayout
+            android:id="@+id/crop_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.wu.media.ui.widget.CropView
+                android:id="@+id/crop_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.wu.media.ui.widget.FrameOverlayView
+                android:id="@+id/overlay_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.wu.media.ui.widget.CropFrameLayout>
+
+        <ImageView
+            android:onClick="@{onClick}"
+            android:id="@+id/rotate_button"
+            android:layout_width="60dp"
+            android:layout_height="58dp"
+            android:padding="18dp"
+            android:src="@drawable/bd_crop_rotate"/>
+
+        <ImageView
+            android:onClick="@{onClick}"
+            android:id="@+id/confirm_button"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:padding="12dp"
+            android:src="@drawable/bd_crop_confirm"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="16dp"/>
+
+        <ImageView
+            android:onClick="@{onClick}"
+            android:id="@+id/cancel_button"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:padding="12dp"
+            android:src="@drawable/bd_crop_cancel"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="16dp"/>
+
+    </com.wu.media.ui.widget.CameraLayout>
+</layout>

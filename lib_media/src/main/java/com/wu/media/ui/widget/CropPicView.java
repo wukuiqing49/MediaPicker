@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.wu.media.ui.widget.crop;
+package com.wu.media.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,13 +29,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
-import android.view.GestureDetector;
+import com.wu.media.ui.widget.crop.CropCompat;
+import com.wu.media.ui.widget.crop.CropUtil;
+import com.wu.media.ui.widget.crop.RotateBitmap;
 import com.wu.media.ui.widget.crop.gestures.OnGestureListener;
 import com.wu.media.ui.widget.crop.gestures.VersionedGestureDetector;
 import com.wu.media.ui.widget.crop.scrollerproxy.ScrollerProxy;
@@ -44,7 +47,7 @@ import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 
-public class CropView extends ImageView implements ViewTreeObserver.OnGlobalLayoutListener, OnGestureListener {
+public class CropPicView extends ImageView implements ViewTreeObserver.OnGlobalLayoutListener, OnGestureListener {
     private static final float DEFAULT_MAX_SCALE = 6.0f;
     private static final float DEFAULT_MID_SCALE = 3.0f;
     private static final float DEFAULT_MIN_SCALE = 1.0f;
@@ -90,18 +93,18 @@ public class CropView extends ImageView implements ViewTreeObserver.OnGlobalLayo
     private int mOutputY;
     private int mSampleSize;
 
-    public CropView load(String path) {
+    public CropPicView load(String path) {
         mOriginPath = path;
         return this;
     }
 
-    public CropView setAspect(int x, int y) {
+    public CropPicView setAspect(int x, int y) {
         mAspectX = x;
         mAspectY = y;
         return this;
     }
 
-    public CropView setOutputSize(int width, int height) {
+    public CropPicView setOutputSize(int width, int height) {
         mOutputX = width;
         mOutputY = height;
         return this;
@@ -148,15 +151,15 @@ public class CropView extends ImageView implements ViewTreeObserver.OnGlobalLayo
         return CropUtil.decodeRegionCrop(getContext(), mOriginPath, cropRect, mOutputX, mOutputY, mBitmapDisplayed.getRotation());
     }
 
-    public CropView(Context context) {
+    public CropPicView(Context context) {
         this(context, null);
     }
 
-    public CropView(Context context, AttributeSet attrs) {
+    public CropPicView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CropView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CropPicView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         setScaleType(ScaleType.MATRIX);
@@ -484,7 +487,7 @@ public class CropView extends ImageView implements ViewTreeObserver.OnGlobalLayo
                 mCurrentX = newX;
                 mCurrentY = newY;
 
-                CropCompat.postOnAnimation(CropView.this, this);
+                CropCompat.postOnAnimation(CropPicView.this, this);
             }
         }
     }
@@ -556,7 +559,7 @@ public class CropView extends ImageView implements ViewTreeObserver.OnGlobalLayo
             onScale(deltaScale, mFocalX, mFocalY);
 
             if (t < 1f) {
-                CropCompat.postOnAnimation(CropView.this, this);
+                CropCompat.postOnAnimation(CropPicView.this, this);
             }
         }
 

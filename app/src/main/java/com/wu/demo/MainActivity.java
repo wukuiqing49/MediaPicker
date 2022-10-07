@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .selectMode(PickerConfig.PICKER_IMAGE_VIDEO)
                         .defaultSelectList(new ArrayList<Media>())
                         .needCamera(true)
+                        .doCrop(0,0,300,300)
                         .builder()
                         .start(this, PickerConfig.PICKER_IMAGE, PickerConfig.DEFAULT_RESULT_CODE);
                 break;

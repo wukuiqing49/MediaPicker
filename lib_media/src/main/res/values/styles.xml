@@ -63,4 +63,11 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <declare-styleable name="CameraLayout">
+        <attr name="contentView" format="reference"/>
+        <attr name="centerView" format="reference"/>
+        <attr name="leftDownView" format="reference"/>
+        <attr name="rightUpView" format="reference"/>
+    </declare-styleable>
+
 </resources>

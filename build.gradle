@@ -33,6 +33,19 @@ task clean(type: Delete) {
 }
 
 ext {
+
+    def versionMinor = 2
+    def versionPatch = 0
+    def versionBuild = 1
+    def versionCur = 1
+    // module依赖库公共版本号
+    versionCode = versionMinor * 1000 + versionPatch * 100 + versionBuild * 10 + versionCur
+    versionName = "${versionMinor}.${versionPatch}.${versionBuild}.${versionCur}"
+
+    compileSdkVersion = 30
+    buildToolsVersion = "30.0.3"
+    minSdkVersion = 21
+    targetSdkVersion = 30
     //androidX
     androidXAppcompat = '1.0.0'
     androidXRecyclerview = '1.0.0'

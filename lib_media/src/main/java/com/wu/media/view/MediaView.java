@@ -29,6 +29,7 @@ import com.wu.media.R;
 import com.wu.media.camera.ui.DiyCameraActivity;
 import com.wu.media.media.entity.Folder;
 import com.wu.media.media.entity.Media;
+import com.wu.media.ui.activity.CropActivity;
 import com.wu.media.ui.activity.CustomCameraActivity;
 import com.wu.media.ui.activity.ImageCropActivity;
 import com.wu.media.ui.activity.MediaActivity;
@@ -506,9 +507,11 @@ public class MediaView implements MvpView {
                         e.printStackTrace();
                     }
                 }
-                ImageCropActivity.start(mActivity, filePath, mActivity.mOptions);
+                CropActivity.start(mActivity, filePath, mActivity.mOptions);
+//                ImageCropActivity.start(mActivity, filePath, mActivity.mOptions);
             } else {
-                ImageCropActivity.start(mActivity, media.path, mActivity.mOptions);
+//                ImageCropActivity.start(mActivity, media.path, mActivity.mOptions);
+                CropActivity.start(mActivity, media.path, mActivity.mOptions);
             }
 
 
