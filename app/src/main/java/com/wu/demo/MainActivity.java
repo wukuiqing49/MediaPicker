@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.huawei.hms.hmsscankit.ScanUtil;
-import com.huawei.hms.ml.scan.HmsScan;
-import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
+
 import com.wu.demo.databinding.ActivityMainBinding;
 import com.wu.media.ImagePicker;
 import com.wu.media.PickerConfig;
@@ -88,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_qr:
                 //打开预览
-                ScanUtil.startScan(this, 10010, new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE).create());
                 break;
         }
     }

@@ -74,6 +74,6 @@ dependencies {
     implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.2'
     implementation 'xyz.doikki.android.dkplayer:player-exo:3.3.2'
     //华为二维码识别
-    api 'com.huawei.hms:scanplus:1.1.1.301'
+//    api 'com.huawei.hms:scanplus:1.1.1.301'
 
 }

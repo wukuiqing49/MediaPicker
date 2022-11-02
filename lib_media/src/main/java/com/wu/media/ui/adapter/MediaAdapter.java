@@ -17,9 +17,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.huawei.hms.hmsscankit.ScanUtil;
-import com.huawei.hms.ml.scan.HmsScan;
-import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.wkq.base.utils.StringUtils;
 import com.wu.media.PickerConfig;
 import com.wu.media.R;
@@ -192,51 +189,6 @@ public class MediaAdapter extends BaseRecyclerViewAdapter<Media> {
 
     }
 
-    private void processQr(MediaImageItemBinding binding, Media mMedia) {
-
-        if (mMedia == null || mMedia.mediaType == 3 || binding == null) return;
-
-        Observable.create(new ObservableOnSubscribe<Boolean>() {
-            @Override
-            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
-
-                HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(mMedia.fileUri));
-                HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
-                if (hmsScans.length > 0) {
-                    emitter.onNext(true);
-                } else {
-                    emitter.onNext(false);
-                }
-            }
-
-
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Boolean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Boolean s) {
-                if (s) {
-                    binding.ivQr.setVisibility(View.VISIBLE);
-                } else {
-                    binding.ivQr.setVisibility(View.GONE);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
 
     /**
      * 处理选中的事件
